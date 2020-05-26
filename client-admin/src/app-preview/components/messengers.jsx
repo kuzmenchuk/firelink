@@ -169,6 +169,9 @@ function whichButton(data) {
 
 function Messengers(props) {
   const messengers = props.data;
+
+  if (!messengers) return null
+
   return (
     <div id="messengers">
       <ul count={messengers.length} id="card_messengers">

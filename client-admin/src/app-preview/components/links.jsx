@@ -1,6 +1,7 @@
 import React from 'react';
 
 function Links(props) {
+  if (!props.data) return null
   return (
     <div id="CardLinks">
       <ul>

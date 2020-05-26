@@ -55,7 +55,7 @@ function AuthPage(props) {
             const data = await request('/api/auth/login', 'POST', { ...form });
             showToastError(data.message, false);
 
-            auth.login(data.token, data.userId)
+            auth.login(data.token, data.userId, data.card)
         } catch (error) { }
     }
 

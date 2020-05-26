@@ -13,7 +13,7 @@ import Products from './pages/admin/products';
 import AuthPage from './pages/AuthPage';
 
 
-export const useRoutes = isAuth => {
+export const useRoutes = (isAuth) => {
     if (isAuth) {
         return (
             <Switch>

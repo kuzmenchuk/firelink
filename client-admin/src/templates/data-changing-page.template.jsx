@@ -6,20 +6,11 @@ import DataContext from '../context/card-data.context';
 
 import { Alert, Intent } from '@blueprintjs/core';
 
-import { AppToaster } from '../components/Toaster';
 import Header from '../components/admin/data-changing-header.component';
 
 
-function showToast(msg, error = true) {
-    if (error) {
-        return AppToaster.show({ message: msg, intent: Intent.WARNING, icon: "warning-sign" });
-    }
-    AppToaster.show({ message: msg, intent: Intent.SUCCESS, icon: "tick" });
-}
-
-
 function DataChangingPage(props) {
-    const { save, exit, changeProfile, loading, request, error, clearError } = useContext(DataContext)
+    const { save, exit, changeProfile, loadingApi, request, error, clearError } = useContext(DataContext)
 
     const [anyChanges, setAnyChanges] = useState(false); // any data changes on inputs?
     const [isOpen, setIsOpen] = useState(false); // is Open the alert about exit without saving?
@@ -33,19 +24,6 @@ function DataChangingPage(props) {
 
         window.history.back()
     }
-
-    // saving changes, sending request to server
-    const saveChanges = () => {
-        save()
-
-    }
-
-    useEffect(() => {
-        if (error) {
-            showToast(error)
-            clearError()
-        }
-    }, [error])
 
     const changeHandler = event => {
         // writing the form input changes 
@@ -66,9 +44,9 @@ function DataChangingPage(props) {
             <Header
                 pageName={props.pageName}
                 anyChanges={anyChanges}
-                loading={loading}
+                loading={loadingApi}
                 goHistoryBack={goHistoryBack}
-                saveChanges={saveChanges}
+                saveChanges={save}
             />
 
             <Alert

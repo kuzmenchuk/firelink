@@ -12,6 +12,7 @@ import { AuthContext } from './context/AuthContext';
 function App() {
   const { login, logout, token, userId, ready } = useAuth()
   const isAuth = !!token;
+
   const routes = useRoutes(isAuth);
 
   if (!ready) return <div>Loading...</div>

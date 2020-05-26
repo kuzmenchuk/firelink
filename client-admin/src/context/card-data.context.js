@@ -2,32 +2,22 @@ import {
     createContext
 } from 'react'
 
+function noop() {};
 
 const DataContext = createContext({
-    linkname: null,
-    data: {
-        analytics: {
-            facebook: null,
-            google: null
-        },
-        design: {
-            background: {
-                isColor: true,
-                color: null,
-                image: null,
-                imageUrl: null
-            },
-            branding: true
-        },
-        links: [],
-        messengers: [],
-        products: [],
-        profileAbout: {
-            description: null,
-            fullname: null,
-            photoUrl: null
-        }
-    }
+    save: noop,
+    loading: false,
+    request: noop,
+    error: null,
+    clearError: noop,
+    exit: noop,
+    theDataObject: {},
+    changeProfile: noop,
+    profile: {},
+    changeDesign: noop,
+    changeLinks: noop,
+    changeMessengers: noop,
+    changeProducts: noop
 })
 
 export default DataContext;

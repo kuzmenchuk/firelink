@@ -1,6 +1,7 @@
 import React from 'react';
 
 function Products(props) {
+  if (!props.data) return null
   return (
     <div id="Shop">
       <div id="products">

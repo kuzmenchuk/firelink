@@ -18,12 +18,12 @@ function App(props) {
                 <div id="CardRoot">
                     <div className="CardRoot_Inner">
                         <Branding />
-                        <Background data={props.theDataObject.data.design} />
+                        <Background data={props.theDataObject.design} />
 
                         <div>
-                            <CardAbout data={props.theDataObject.data} profile={props.profileData} />
-                            <Links data={props.theDataObject.data.links} />
-                            <Products data={props.theDataObject.data.products} />
+                            <CardAbout data={props.theDataObject} profile={props.profileData} />
+                            <Links data={props.theDataObject.links} />
+                            <Products data={props.theDataObject.products} />
                             <BrandingFooter />
                         </div>
 

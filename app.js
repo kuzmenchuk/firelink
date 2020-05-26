@@ -1,11 +1,17 @@
+const path = require('path');
+
 const express = require('express');
 const mongoose = require('mongoose');
 
+const config = require('config');
+
 const app = express();
+
 
 app.use(express.json({
     extended: true
 }))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'localhost:3000');
@@ -16,7 +22,8 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', require('./routes/auth.routes'));
 
-const config = require('config');
+app.use('/api/data-change', require('./routes/data-changes.routes'));
+
 const PORT = config.get('port') || 5000;
 
 async function start() {
