@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 
-import { useHttp } from '../hooks/http.hook';
-
 import DataContext from '../context/card-data.context';
 
 import { Alert, Intent } from '@blueprintjs/core';
@@ -21,7 +19,6 @@ function DataChangingPage(props) {
         if (anyChanges) {
             return setIsOpen(true); // alert openning about unsaved data
         }
-
         window.history.back()
     }
 

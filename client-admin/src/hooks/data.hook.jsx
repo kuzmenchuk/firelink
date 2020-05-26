@@ -1,19 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 
-import { Intent } from '@blueprintjs/core';
-import { AppToaster } from '../components/Toaster';
-
 import { useHttp } from './http.hook';
-
-
-
-
-function showToast(msg, error = true) {
-    if (error) {
-        return AppToaster.show({ message: msg, intent: Intent.WARNING, icon: "warning-sign" });
-    }
-    AppToaster.show({ message: msg, intent: Intent.SUCCESS, icon: "tick" });
-}
+import { useMessage } from './message.hook';
 
 const data = {
     linkname: '',
@@ -38,11 +26,13 @@ const data = {
 
 export const useData = () => {
 
-    const { loading, request, error, clearError } = useHttp(); // request to server hook
+    const { showToast } = useMessage();
+    const { loading, request } = useHttp(); // request to server hook
     const loadingApi = loading;
+
+
     // The Main State
     const [theDataObject, setTheDataObject] = useState(data)
-
     // Card States
     const [linkName, setLinkName] = useState(theDataObject.linkname)
     const [design, setDesign] = useState(theDataObject.design)
@@ -50,6 +40,7 @@ export const useData = () => {
     const [messengers, setMessengers] = useState(theDataObject.messengers)
     const [products, setProducts] = useState(theDataObject.products)
     const [profile, setProfile] = useState(theDataObject.profileAbout)
+
 
     useEffect(() => {
         setLinkName(theDataObject.linkname)
@@ -59,6 +50,7 @@ export const useData = () => {
         setMessengers(theDataObject.messengers)
         setProducts(theDataObject.products)
     }, [theDataObject])
+
 
     // Data Transformation Functions
     const changeProfile = data => {
@@ -97,19 +89,17 @@ export const useData = () => {
 
         try {
             const data = await request('/api/data-change/card/profile', 'POST', { ...profile }, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
+            setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
             window.history.back()
-            showToast(data.message, false);
-        } catch (error) {
-            showToast(error.message)
-            clearError()
-        }
+            showToast(data.message, 'success');
+        } catch (error) { }
     }
 
     // console.log(theDataObject)
 
 
     return {
-        save, loadingApi, request, error, clearError, // API 
+        save, loadingApi, // API 
         exit,
         setTheDataObject,
         theDataObject,

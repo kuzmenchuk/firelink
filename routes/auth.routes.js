@@ -33,10 +33,4 @@ router.post(
     authController.postLogin
 )
 
-// /api/auth/logout
-router.post(
-    '/logout',
-    authController.postLogout
-)
-
 module.exports = router;

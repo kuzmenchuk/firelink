@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 
+import { Spinner } from '@blueprintjs/core';
+
 import { adminRoutes } from '../routes';
 
 import App from '../app-preview/app';
@@ -16,7 +18,7 @@ function AdminPage() {
    const { loading, request } = useHttp()
    const { token } = useContext(AuthContext)
 
-   const { save, loadingApi, error, clearError, exit, theDataObject, setTheDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts } = useData();
+   const { save, loadingApi, exit, theDataObject, setTheDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts } = useData();
 
    useEffect(() => {
       async function fetchData() {
@@ -31,10 +33,10 @@ function AdminPage() {
       fetchData()
    }, [token, request])
 
-   if (loading) return <h1>Loading BLYA...</h1>
+   if (loading) return <Spinner intent='none' size={70} />
 
    return (
-      <DataContext.Provider value={{ save, loadingApi, error, clearError, exit, theDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts }}>
+      <DataContext.Provider value={{ save, loadingApi, exit, theDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts }}>
          <div className="container">
             <div className="row-left">
                {routes}

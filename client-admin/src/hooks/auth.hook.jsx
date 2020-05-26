@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from 'react'
 
-import { useHttp } from './http.hook';
+import { useMessage } from './message.hook';
 
 const storageName = 'userData'
 
 export const useAuth = () => {
-    const { loading, request, error, clearError } = useHttp(); // request to server hook
+    const { showToast } = useMessage();
     const [token, setToken] = useState(null)
     const [userId, setUserId] = useState(null)
     const [ready, setReady] = useState(false)
@@ -19,24 +19,18 @@ export const useAuth = () => {
         }))
     }, [])
 
-    const logout = useCallback(async () => {
-        try {
-            await request('/api/auth/logout', 'POST');
-            // showToast(data.message, false);
-            setToken(null);
-            setUserId(null);
-            localStorage.removeItem(storageName)
-        } catch (error) {
-            // showToast(error.message)
-            clearError()
-        }
+    const logout = useCallback((doToast = true) => {
+        setToken(null)
+        setUserId(null)
+        localStorage.removeItem(storageName)
+        if (doToast) showToast('Do zobaczenia, Partnerze!', 'success')
     }, [])
 
     useEffect(() => {
         const data = JSON.parse(localStorage.getItem(storageName))
 
         if (data && data.token) {
-            login(data.token, data.userId, data.card)
+            login(data.token, data.userId)
         }
         setReady(true)
     }, [login])

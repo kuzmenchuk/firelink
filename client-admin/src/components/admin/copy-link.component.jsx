@@ -2,21 +2,14 @@ import React, { useState } from 'react';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { AppToaster } from '../Toaster';
-
-import { Intent } from "@blueprintjs/core";
-
-function showToast() {
-    // create toasts in response to interactions.
-    // in most cases, it's enough to simply create and forget (thanks to timeout).
-    AppToaster.show({ message: "Link skopiowany.", intent: Intent.PRIMARY });
-}
+import { useMessage } from '../../hooks/message.hook';
 
 function CopyLink() {
+    const { showToast } = useMessage();
     const [linkValue] = useState('firelink.pl/kuzmenczuk')
     return (
         <CopyToClipboard text={`https://${linkValue}`}
-            onCopy={showToast}>
+            onCopy={() => showToast('Link jest skopiowany!', 'primary')}>
             <input
                 className="bp3-input bp3-large bp3-fill copy-link"
                 type="text"

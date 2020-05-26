@@ -24,6 +24,24 @@ app.use('/api/auth', require('./routes/auth.routes'));
 
 app.use('/api/data-change', require('./routes/data-changes.routes'));
 
+app.use((error, req, res, nest) => {
+    console.log("\x1b[31m", error);
+    const status = error.statusCode || 500;
+    const message = error.message;
+    // if we have express-validator errors
+    if (error.validationErrors) {
+        return res.status(status).json({
+            errors: error.validationErrors,
+            message
+        });
+    }
+    // else
+    res.status(status).json({
+        message
+    });
+})
+
+// starting the server
 const PORT = config.get('port') || 5000;
 
 async function start() {

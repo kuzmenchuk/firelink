@@ -16,10 +16,10 @@ exports.postSignup = async (req, res, next) => {
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array(),
-                message: 'Nieprawidłowe dane rejestracji'
-            })
+            const error = new Error('Nieprawidłowe dane rejestracji');
+            error.statusCode = 400;
+            error.validationErrors = errors.array();
+            throw error;
         }
 
         const {
@@ -32,9 +32,9 @@ exports.postSignup = async (req, res, next) => {
         });
 
         if (uniqueEmailCheck) {
-            res.status(400).json({
-                message: 'Mamy już taki email w bazie.'
-            })
+            const error = new Error('Mamy już taki email w bazie');
+            error.statusCode = 400;
+            throw error;
         }
 
         const HashedPassword = await bcrypt.hash(password, 11)
@@ -78,10 +78,8 @@ exports.postSignup = async (req, res, next) => {
 
 
     } catch (e) {
-        console.log("\x1b[31m", 'Error 500!', e)
-        res.status(500).json({
-            message: 'Coś poszło nie tak, już pracujemy nad tym...'
-        })
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
     }
 }
 
@@ -90,10 +88,10 @@ exports.postLogin = async (req, res, next) => {
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array(),
-                message: 'Nieprawidłowe dane logowania'
-            })
+            const error = new Error('Nieprawidłowe dane logowania');
+            error.statusCode = 400;
+            error.validationErrors = errors.array();
+            throw error;
         }
 
         const {
@@ -106,25 +104,21 @@ exports.postLogin = async (req, res, next) => {
         });
 
         if (!user) {
-            return res.status(400).json({
-                message: 'Podany email lub hasło jest nieprawdiłowe'
-            })
+            const error = new Error('Podany email lub hasło jest nieprawdiłowe');
+            error.statusCode = 400;
+            throw error;
         }
 
         const matchingPasswords = await bcrypt.compare(password, user.password);
 
         if (!matchingPasswords) {
-            return res.status(400).json({
-                message: 'Podany email lub hasło jest nieprawdiłowe'
-            })
+            const error = new Error('Podany email lub hasło jest nieprawdiłowe');
+            error.statusCode = 400;
+            throw error;
         }
 
         user.lastLogin = new Date();
         await user.save()
-
-        const card = await Card.findOne({
-            userId: user._id
-        })
 
         const token = jwt.sign({
                 userId: user.id
@@ -137,32 +131,14 @@ exports.postLogin = async (req, res, next) => {
         req.userId = user.id
 
         res.json({
-            card,
             token,
             userId: user.id,
             message: 'Zalogowałeś się pomyślnie!'
         })
 
     } catch (e) {
-        console.log("\x1b[31m", 'Error 500!', e)
-        res.status(500).json({
-            message: 'Coś poszło innaczej, już pracujemy nad tym...'
-        })
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
     }
 
-}
-
-// logout
-exports.postLogout = async (req, res, next) => {
-    try {
-        res.json({
-            message: 'Wylogowałeś się pomyślnie!'
-        })
-
-    } catch (e) {
-        console.log("\x1b[31m", 'Error 500!', e)
-        res.status(500).json({
-            message: 'Coś poszło innaczej, już pracujemy nad tym...'
-        })
-    }
 }

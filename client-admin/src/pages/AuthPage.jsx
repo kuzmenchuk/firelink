@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AppToaster } from '../components/Toaster';
 import { useHttp } from '../hooks/http.hook';
+import { useMessage } from '../hooks/message.hook';
 
 import { InputGroup, Tooltip, Button, Intent } from '@blueprintjs/core';
 
 import './auth-page.scss';
 import { AuthContext } from '../context/AuthContext';
 
-function showToastError(msg, error = true) {
-    if (error) {
-        return AppToaster.show({ message: msg, intent: Intent.WARNING, icon: "warning-sign" });
-    }
-    AppToaster.show({ message: msg, intent: Intent.SUCCESS, icon: "tick" });
-}
-
 
 function AuthPage(props) {
+    const { showToast } = useMessage()
     const { loading, request, error, clearError } = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
@@ -46,14 +40,14 @@ function AuthPage(props) {
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', { ...form });
-            showToastError(data.message, false)
+            showToast(data.message, 'success')
         } catch (error) { }
     }
 
     const loginHandler = async () => {
         try {
             const data = await request('/api/auth/login', 'POST', { ...form });
-            showToastError(data.message, false);
+            showToast(data.message, 'success');
 
             auth.login(data.token, data.userId, data.card)
         } catch (error) { }
@@ -61,7 +55,7 @@ function AuthPage(props) {
 
     useEffect(() => {
         if (error) {
-            showToastError(error)
+            showToast(error, 'error')
             clearError()
         }
     }, [error])

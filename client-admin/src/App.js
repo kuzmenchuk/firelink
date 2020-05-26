@@ -1,4 +1,5 @@
 import React from 'react';
+import { Spinner } from '@blueprintjs/core';
 
 import {
   BrowserRouter as Router,
@@ -15,7 +16,7 @@ function App() {
 
   const routes = useRoutes(isAuth);
 
-  if (!ready) return <div>Loading...</div>
+  if (!ready) return <Spinner intent='none' size={70} />
 
 
   return (
