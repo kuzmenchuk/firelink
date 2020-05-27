@@ -14,11 +14,9 @@ exports.getData = async (req, res, next) => {
             card
         })
 
-    } catch (error) {
-        console.log("\x1b[31m", 'Error 500!', error)
-        res.status(500).json({
-            message: 'Coś poszło nie tak... Spróbuj jeszcze raz.'
-        })
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
     }
 }
 
@@ -28,11 +26,15 @@ exports.getData = async (req, res, next) => {
 exports.postProfile = async (req, res, next) => {
     try {
 
-        const {
+        let {
             fullname,
             description,
             photoUrl
         } = req.body;
+
+        if (req.file) {
+            req.file.path ? photoUrl = req.file.path : null
+        }
 
         const card = await Card.findOne({
             userId: req.userId
@@ -54,10 +56,8 @@ exports.postProfile = async (req, res, next) => {
             message: 'Zmieniłeś dane na swoim linku!'
         })
 
-    } catch (error) {
-        console.log("\x1b[31m", 'Error 500!', error)
-        res.status(500).json({
-            message: 'Coś poszło nie tak... Spróbuj jeszcze raz.'
-        })
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
     }
 }

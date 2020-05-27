@@ -88,14 +88,18 @@ export const useData = () => {
 
 
         try {
-            const data = await request('/api/data-change/card/profile', 'POST', { ...profile }, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
+            const formData = new FormData();
+            formData.append('description', profile.description);
+            formData.append('fullname', profile.fullname);
+            formData.append('photoUrl', profile.photoUrl);
+            formData.append('photofile', profile.photofile);
+
+            const data = await request('/api/data-change/card/profile', 'POST', formData, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
             setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
             window.history.back()
             showToast(data.message, 'success');
         } catch (error) { }
     }
-
-    // console.log(theDataObject)
 
 
     return {

@@ -13,8 +13,6 @@ function DataChangingPage(props) {
     const [anyChanges, setAnyChanges] = useState(false); // any data changes on inputs?
     const [isOpen, setIsOpen] = useState(false); // is Open the alert about exit without saving?
 
-    const [form, setForm] = useState({}); // form inputs data
-
     const goHistoryBack = () => {
         if (anyChanges) {
             return setIsOpen(true); // alert openning about unsaved data
@@ -25,7 +23,13 @@ function DataChangingPage(props) {
     const changeHandler = event => {
         // writing the form input changes 
         if (!anyChanges) setAnyChanges(true)
-        changeProfile({ ...form, [event.target.name]: event.target.value });
+        if (event.target.files) {
+            console.log(event.target.files[0])
+            changeProfile({ photofile: event.target.files[0] });
+        } else {
+            changeProfile({ [event.target.name]: event.target.value });
+        }
+
     }
 
     // alert about exit without unsaving - handlers on button clicking

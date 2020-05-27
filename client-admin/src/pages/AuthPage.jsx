@@ -12,7 +12,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function AuthPage(props) {
     const { showToast } = useMessage()
-    const { loading, request, error, clearError } = useHttp()
+    const { loading, request } = useHttp()
     const [form, setForm] = useState({
         email: '', password: ''
     })
@@ -49,16 +49,9 @@ function AuthPage(props) {
             const data = await request('/api/auth/login', 'POST', { ...form });
             showToast(data.message, 'success');
 
-            auth.login(data.token, data.userId, data.card)
+            auth.login(data.token, data.userId)
         } catch (error) { }
     }
-
-    useEffect(() => {
-        if (error) {
-            showToast(error, 'error')
-            clearError()
-        }
-    }, [error])
 
     return (
         <div className="auth-container">

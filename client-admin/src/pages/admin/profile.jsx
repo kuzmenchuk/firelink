@@ -31,6 +31,7 @@ function About() {
               onChange={changeHandler}
               value={profile.description}
             />
+            <input type="file" name="photofile" onChange={changeHandler} />
           </main>
         )
       }
