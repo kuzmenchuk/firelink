@@ -1,5 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 
+import { v1 as uuidv1 } from 'uuid';
+
 import { useHttp } from './http.hook';
 import { useMessage } from './message.hook';
 
@@ -24,13 +26,20 @@ const data = {
 }
 
 
+
 export const useData = () => {
+    const newLinkTemplate = {
+        id: '',
+        active: false,
+        header: 'Nowy Link',
+        subheader: ' ',
+        href: '/'
+    }
+    const [anyChanges, setAnyChanges] = useState(false); // any data changes on inputs?
 
     const { showToast } = useMessage();
     const { loading, request } = useHttp(); // request to server hook
     const loadingApi = loading;
-
-
     // The Main State
     const [theDataObject, setTheDataObject] = useState(data)
     // Card States
@@ -53,29 +62,52 @@ export const useData = () => {
 
 
     // Data Transformation Functions
-    const changeProfile = data => {
-        setProfile({ ...profile, ...data });
+    const changeProfile = event => {
+        // setProfile({ ...profile, ...data });
+        if (!anyChanges) setAnyChanges(true)
+        if (event.target.files) {
+            setProfile({ ...profile, photofile: event.target.files[0] });
+        } else {
+            setProfile({ ...profile, [event.target.name]: event.target.value });
+        }
 
     }
 
     const changeDesign = data => {
-        setDesign(data);
+        setDesign({ ...design, ...data });
     }
 
     const changeMessengers = data => {
-        setMessengers(data);
+        setMessengers({ ...messengers, ...data });
     }
 
+
+    // <! -- LINKS -- >
     const changeLinks = data => {
-        setLinks(data);
+        setLinks({ ...links, ...data });
     }
 
+    const addNewLink = () => {
+        if (!anyChanges) setAnyChanges(true)
+        newLinkTemplate.id = uuidv1()
+        var newArr = links.concat(newLinkTemplate);
+        setLinks(newArr);
+    }
+
+    const deleteLink = id => {
+        if (!anyChanges) setAnyChanges(true)
+        var newArr = links.filter(link => link.id !== id)
+        setLinks(newArr);
+    }
+
+
+    // <! -- PRODUCTS -- >
     const changeProducts = data => {
-        setProducts(data);
+        setProducts({ ...products, ...data });
     }
 
 
-    // Save and exit functions
+    // Exit Function
     function exit() {
         setDesign(theDataObject.design)
         setLinks(theDataObject.links)
@@ -84,9 +116,9 @@ export const useData = () => {
         setProfile(theDataObject.profileAbout)
     }
 
-    const save = async () => {
 
-
+    // Save FunctionS
+    const saveProfile = async () => {
         try {
             const formData = new FormData();
             formData.append('description', profile.description);
@@ -95,19 +127,39 @@ export const useData = () => {
             formData.append('photofile', profile.photofile);
 
             const data = await request('/api/data-change/card/profile', 'POST', formData, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
-            setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
-            window.history.back()
-            showToast(data.message, 'success');
+
+            if (data) {
+                setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
+                window.history.back()
+                showToast(data.message, 'success');
+                setAnyChanges(false)
+            }
+        } catch (error) { }
+    }
+
+    const saveLinks = async () => {
+        try {
+            const data = await request('/api/data-change/card/links', 'POST', links, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
+
+            if (data) {
+                setTheDataObject({ ...theDataObject, links })
+                window.history.back()
+                showToast(data.message, 'success');
+                setAnyChanges(false)
+            }
         } catch (error) { }
     }
 
 
     return {
-        save, loadingApi, // API 
+        saveProfile, saveLinks, addNewLink, deleteLink,
+        loadingApi, // API 
         exit,
         setTheDataObject,
         theDataObject,
         changeProfile, profile,
-        changeDesign, changeLinks, changeMessengers, changeProducts
+        changeDesign, changeLinks, changeMessengers, changeProducts,
+        links, setLinks,
+        anyChanges, setAnyChanges
     }
 }

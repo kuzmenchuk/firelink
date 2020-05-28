@@ -30,6 +30,10 @@ const cardSchema = new Schema({
         }
     },
     links: [{
+        id: {
+            type: String,
+            required: true
+        },
         header: {
             type: String,
             // required: true

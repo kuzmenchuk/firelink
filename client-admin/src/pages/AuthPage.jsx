@@ -76,13 +76,14 @@ function AuthPage(props) {
                     onChange={changeHandler}
                 />
                 <br />
-                <button
+                <Button
                     type="submit"
                     className="bp3-button bp3-large"
+                    loading={loading}
                     onClick={isLoginPage ? loginHandler : registerHandler}
                 >
                     {isLoginPage ? 'Zaloguj się' : 'Zarejestruj się'}
-                </button>
+                </Button>
                 <div>
                     <Link
                         className="auth-boolean"

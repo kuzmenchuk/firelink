@@ -1,5 +1,6 @@
 {
     "port": 5000,
+    "domen": "http://localhost:5000/",
     "jwtSecret": "dsghIE92sh832PD1942934bIU1asfq",
     "MongoUri": "mongodb+srv://dk-kuzmenczuk:ceYJfzqZJV9r2qgt30lQppkkjI@cluster0-hu8qh.mongodb.net/users?retryWrites=true&w=majority"
 }

@@ -1,6 +1,8 @@
 const User = require('../models/User');
 const Card = require('../models/Card');
 
+const config = require('config');
+
 
 // /api/data-change/get-data
 exports.getData = async (req, res, next) => {
@@ -33,13 +35,12 @@ exports.postProfile = async (req, res, next) => {
         } = req.body;
 
         if (req.file) {
-            req.file.path ? photoUrl = req.file.path : null
+            req.file.path ? photoUrl = config.get('domen') + req.file.path : null
         }
 
         const card = await Card.findOne({
             userId: req.userId
         })
-
 
         card.profileAbout = {
             fullname,
@@ -50,7 +51,34 @@ exports.postProfile = async (req, res, next) => {
 
         await card.save()
 
-        console.log(card)
+        res.status(201).json({
+            message: 'Zmieniłeś dane na swoim linku!'
+        })
+
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
+    }
+}
+
+// change Card Profile
+// /api/data-change/card/links
+exports.postLinks = async (req, res, next) => {
+    try {
+        const card = await Card.findOne({
+            userId: req.userId
+        })
+
+        // const linkTTT = {
+        //     id: '111',
+        //     header: 'link',
+        //     subheader: 'subheader',
+        //     href: '/'
+        // }
+        // card.links.push(linkTTT)
+        card.links = req.body;
+
+        await card.save()
 
         res.status(201).json({
             message: 'Zmieniłeś dane na swoim linku!'

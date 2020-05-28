@@ -6,35 +6,39 @@ import DataChangingTemplate from '../../templates/data-changing-page.template';
 
 import InputFields from '../../components/admin/input-fields.component';
 
+import './profile.styles.scss';
+
 function About() {
-  const { profile } = useContext(DataContext)
+  const { profile, changeProfile } = useContext(DataContext)
 
   return (
     <DataChangingTemplate
       pageName='Informacje o sobie'
+      whatSave='profile'
     >
-      {
-        changeHandler => (
-          <main className="about-page">
-            <InputFields
-              name='fullname'
-              input
-              placeholder='Twoje Imię'
-              label='Imię'
-              onChange={changeHandler}
-              value={profile.fullname}
-            />
-            <InputFields
-              name='description'
-              placeholder='Opis'
-              label='Opis'
-              onChange={changeHandler}
-              value={profile.description}
-            />
-            <input type="file" name="photofile" onChange={changeHandler} />
-          </main>
-        )
-      }
+      <main className="about-page">
+        <InputFields
+          name='fullname'
+          input
+          placeholder='Twoje Imię'
+          label='Imię'
+          onChange={changeProfile}
+          value={profile.fullname}
+        />
+        <InputFields
+          name='description'
+          placeholder='Opis'
+          label='Opis'
+          onChange={changeProfile}
+          value={profile.description}
+        />
+
+        <div className="form-group files color">
+          <label>Wybierz swoje zdjęcie</label>
+          <input type="file" name="photofile" onChange={changeProfile} className="form-control" multiple="" />
+        </div>
+
+      </main>
     </DataChangingTemplate>
   )
 }

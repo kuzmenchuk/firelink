@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { Spinner } from '@blueprintjs/core';
 
@@ -18,7 +18,7 @@ function AdminPage() {
    const { loading, request } = useHttp()
    const { token } = useContext(AuthContext)
 
-   const { save, loadingApi, exit, theDataObject, setTheDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts } = useData();
+   const dataHook = useData();
 
    useEffect(() => {
       async function fetchData() {
@@ -27,7 +27,7 @@ function AdminPage() {
                Authorization: `Bearer ${token}`
             })
 
-            setTheDataObject(fetched.card)
+            dataHook.setTheDataObject(fetched.card)
          } catch (e) { }
       }
       fetchData()
@@ -36,17 +36,25 @@ function AdminPage() {
    if (loading) return <Spinner intent='none' size={70} />
 
    return (
-      <DataContext.Provider value={{ save, loadingApi, exit, theDataObject, changeProfile, profile, changeDesign, changeLinks, changeMessengers, changeProducts }}>
+      <DataContext.Provider value={dataHook}>
          <div className="container">
             <div className="row-left">
                {routes}
             </div>
 
             <div className="row-right">
-               <App
-                  theDataObject={theDataObject}
-                  profileData={profile}
-               />
+               {
+                  loading
+                     ?
+                     <Spinner intent='none' size={70} />
+                     :
+                     <App
+                        theDataObject={dataHook.theDataObject}
+                        profileData={dataHook.profile}
+                        links={dataHook.links}
+                     />
+               }
+
             </div>
          </div>
       </DataContext.Provider>

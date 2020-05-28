@@ -8,9 +8,8 @@ import Header from '../components/admin/data-changing-header.component';
 
 
 function DataChangingPage(props) {
-    const { save, exit, changeProfile, loadingApi, request, error, clearError } = useContext(DataContext)
+    const { anyChanges, setAnyChanges, exit, loadingApi } = useContext(DataContext)
 
-    const [anyChanges, setAnyChanges] = useState(false); // any data changes on inputs?
     const [isOpen, setIsOpen] = useState(false); // is Open the alert about exit without saving?
 
     const goHistoryBack = () => {
@@ -20,21 +19,10 @@ function DataChangingPage(props) {
         window.history.back()
     }
 
-    const changeHandler = event => {
-        // writing the form input changes 
-        if (!anyChanges) setAnyChanges(true)
-        if (event.target.files) {
-            console.log(event.target.files[0])
-            changeProfile({ photofile: event.target.files[0] });
-        } else {
-            changeProfile({ [event.target.name]: event.target.value });
-        }
-
-    }
-
     // alert about exit without unsaving - handlers on button clicking
     const handleMoveConfirm = () => {
         setIsOpen(false)
+        setAnyChanges(false)
         exit()
         window.history.back()
     };
@@ -47,7 +35,7 @@ function DataChangingPage(props) {
                 anyChanges={anyChanges}
                 loading={loadingApi}
                 goHistoryBack={goHistoryBack}
-                saveChanges={save}
+                whatSave={props.whatSave}
             />
 
             <Alert
@@ -65,7 +53,7 @@ function DataChangingPage(props) {
                 </p>
             </Alert>
 
-            {props.children(changeHandler)}
+            {props.children}
         </>
     );
 }

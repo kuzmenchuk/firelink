@@ -22,7 +22,7 @@ function App(props) {
 
                         <div>
                             <CardAbout data={props.theDataObject} profile={props.profileData} />
-                            <Links data={props.theDataObject.links} />
+                            <Links data={props.links} />
                             <Products data={props.theDataObject.products} />
                             <BrandingFooter />
                         </div>

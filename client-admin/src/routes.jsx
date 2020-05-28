@@ -7,6 +7,7 @@ import MainMenu from './pages/admin/main-menu';
 import About from './pages/admin/profile';
 import Design from './pages/admin/design';
 import Links from './pages/admin/links';
+import SingleLink from './pages/admin/single-link';
 import Messengers from './pages/admin/messengers';
 import Products from './pages/admin/products';
 
@@ -52,6 +53,9 @@ export const adminRoutes = () => {
             </Route>
             <Route path="/profile/links" exact>
                 <Links />
+            </Route>
+            <Route path="/profile/links/:id">
+                <SingleLink />
             </Route>
             <Route path="/profile/m" exact>
                 <Messengers />
