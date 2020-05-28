@@ -23,6 +23,13 @@ router.post(
     CardDataController.postLinks
 )
 
+// /api/data-change/card/single-link
+router.post(
+    '/card/single-link',
+    isAuth,
+    CardDataController.postSingleLink
+)
+
 // /api/data-change/get-data
 router.get(
     '/get-data',

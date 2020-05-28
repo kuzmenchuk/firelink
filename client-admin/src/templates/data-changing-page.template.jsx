@@ -36,6 +36,7 @@ function DataChangingPage(props) {
                 loading={loadingApi}
                 goHistoryBack={goHistoryBack}
                 whatSave={props.whatSave}
+                link={props.link}
             />
 
             <Alert

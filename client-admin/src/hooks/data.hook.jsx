@@ -32,8 +32,8 @@ export const useData = () => {
         id: '',
         active: false,
         header: 'Nowy Link',
-        subheader: ' ',
-        href: '/'
+        subheader: '',
+        href: ''
     }
     const [anyChanges, setAnyChanges] = useState(false); // any data changes on inputs?
 
@@ -84,20 +84,31 @@ export const useData = () => {
 
     // <! -- LINKS -- >
     const changeLinks = data => {
-        setLinks({ ...links, ...data });
+        if (!anyChanges) setAnyChanges(true)
+        setLinks(data)
+
     }
 
-    const addNewLink = () => {
-        if (!anyChanges) setAnyChanges(true)
-        newLinkTemplate.id = uuidv1()
-        var newArr = links.concat(newLinkTemplate);
-        setLinks(newArr);
+    const addNewLink = async () => {
+        try {
+            newLinkTemplate.id = uuidv1()
+            var newArr = links.concat(newLinkTemplate);
+            setLinks(newArr);
+
+            const data = await request('/api/data-change/card/links', 'POST', newArr,
+                { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token })
+
+            if (data) {
+                setTheDataObject({ ...theDataObject, links: newArr })
+                showToast('Nowy link jest dodany!', 'success');
+            }
+        } catch (error) { }
     }
 
     const deleteLink = id => {
         if (!anyChanges) setAnyChanges(true)
         var newArr = links.filter(link => link.id !== id)
-        setLinks(newArr);
+        setLinks(newArr)
     }
 
 
@@ -143,6 +154,20 @@ export const useData = () => {
 
             if (data) {
                 setTheDataObject({ ...theDataObject, links })
+                //window.history.back()
+                showToast(data.message, 'success');
+                setAnyChanges(false)
+            }
+        } catch (error) { }
+    }
+
+    const saveSingleLink = async (link) => {
+        try {
+            const data = await request('/api/data-change/card/single-link', 'POST', link, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
+
+            if (data) {
+                console.log(links)
+                setTheDataObject({ ...theDataObject, links })
                 window.history.back()
                 showToast(data.message, 'success');
                 setAnyChanges(false)
@@ -150,16 +175,14 @@ export const useData = () => {
         } catch (error) { }
     }
 
-
     return {
-        saveProfile, saveLinks, addNewLink, deleteLink,
-        loadingApi, // API 
-        exit,
-        setTheDataObject,
-        theDataObject,
-        changeProfile, profile,
-        changeDesign, changeLinks, changeMessengers, changeProducts,
-        links, setLinks,
-        anyChanges, setAnyChanges
+        saveProfile, changeProfile, profile,
+        saveLinks, saveSingleLink, changeLinks, setLinks, links, addNewLink, deleteLink,
+
+        setTheDataObject, theDataObject,
+        changeDesign, changeMessengers, changeProducts,
+        anyChanges, setAnyChanges,
+        loadingApi,
+        exit
     }
 }

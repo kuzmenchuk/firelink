@@ -9,12 +9,16 @@ import './data-changing-header.styles.scss';
 
 
 export default function MenuItem(props) {
-    const { saveProfile, saveLinks } = useContext(DataContext)
+    const { saveProfile, saveLinks, saveSingleLink } = useContext(DataContext)
 
     const saveChanges = key => {
         switch (key) {
             case 'links':
                 saveLinks()
+                break;
+
+            case 'single-link':
+                saveSingleLink(props.link)
                 break;
 
             case 'profile':

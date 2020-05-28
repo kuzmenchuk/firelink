@@ -27,7 +27,6 @@ exports.getData = async (req, res, next) => {
 // /api/data-change/card/profile
 exports.postProfile = async (req, res, next) => {
     try {
-
         let {
             fullname,
             description,
@@ -41,6 +40,11 @@ exports.postProfile = async (req, res, next) => {
         const card = await Card.findOne({
             userId: req.userId
         })
+
+        // <! -- The Link chanigin -- >
+        // console.log(card.links.find(card => card._id.toString() === '5eceb5d77366cf90f1ee1549'))
+        // const myLink = card.links.find(card => card._id.toString() === '5eceb5d77366cf90f1ee1549');
+        // myLink.subheader = 'jojo';
 
         card.profileAbout = {
             fullname,
@@ -61,7 +65,7 @@ exports.postProfile = async (req, res, next) => {
     }
 }
 
-// change Card Profile
+// change Card Links
 // /api/data-change/card/links
 exports.postLinks = async (req, res, next) => {
     try {
@@ -69,14 +73,38 @@ exports.postLinks = async (req, res, next) => {
             userId: req.userId
         })
 
-        // const linkTTT = {
-        //     id: '111',
-        //     header: 'link',
-        //     subheader: 'subheader',
-        //     href: '/'
-        // }
-        // card.links.push(linkTTT)
         card.links = req.body;
+
+        await card.save()
+
+        res.status(201).json({
+            message: 'Zmieniłeś dane na swoim linku!'
+        })
+
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
+    }
+}
+
+// /api/data-change/card/single-link
+exports.postSingleLink = async (req, res, next) => {
+    try {
+        let {
+            id,
+            header,
+            subheader,
+            href
+        } = req.body;
+
+        const card = await Card.findOne({
+            userId: req.userId
+        })
+
+        const myLink = card.links.find(card => card.id === id);
+        myLink.header = header;
+        myLink.subheader = subheader;
+        myLink.href = href;
 
         await card.save()
 
