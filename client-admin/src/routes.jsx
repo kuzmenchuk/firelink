@@ -13,6 +13,7 @@ import Products from './pages/admin/products';
 import SingleProduct from './pages/admin/single-product';
 
 import AuthPage from './pages/AuthPage';
+import LogIn from './pages/login';
 
 
 export const useRoutes = (isAuth) => {
@@ -30,7 +31,7 @@ export const useRoutes = (isAuth) => {
     return (
         <Switch>
             <Route path="/login" exact>
-                <AuthPage />
+                <LogIn />
             </Route>
             <Route path="/signup" exact>
                 <AuthPage signup />

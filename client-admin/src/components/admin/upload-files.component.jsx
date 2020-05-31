@@ -29,7 +29,6 @@ const UploadFiles = (props) => {
                     Upload
                 </Button>
             </label>
-            {/* <img src={url} /> */}
         </div>
     )
 }

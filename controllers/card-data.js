@@ -165,7 +165,6 @@ exports.postProducts = async (req, res, next) => {
         const card = await Card.findOne({
             userId: req.userId
         })
-        console.log(req.body)
 
         card.products = req.body;
 

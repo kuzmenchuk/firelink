@@ -52,6 +52,7 @@ function SingleLink() {
                     label='Nazwa linku'
                     onChange={(event) => changeLinks('single-link-form-data', linkId, event)}
                     value={links[linkIndex].header}
+                    maxLength='48'
                 />
                 <InputFields
                     name='subheader'
@@ -60,6 +61,7 @@ function SingleLink() {
                     label='Podtytuł'
                     onChange={(event) => changeLinks('single-link-form-data', linkId, event)}
                     value={links[linkIndex].subheader}
+                    maxLength='48'
                 />
                 <InputFields
                     name='href'

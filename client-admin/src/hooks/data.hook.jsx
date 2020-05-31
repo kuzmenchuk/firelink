@@ -82,6 +82,10 @@ export const useData = () => {
                 setProfile({ ...profile, photofile: value.target.files[0] });
                 break;
 
+            case 'delete-image':
+                setProfile({ ...profile, photoUrl: 'http://localhost:5000/images/avatar_default.svg' });
+                break;
+
             default:
                 break;
         }
@@ -124,6 +128,10 @@ export const useData = () => {
 
             case 'add-image':
                 setDesign({ ...design, photofile: value.target.files[0] })
+                break;
+
+            case 'delete-image':
+                setDesign({ ...design, background: { ...design.background, imageUrl: '' } })
                 break;
 
             case 'branding':
@@ -170,7 +178,7 @@ export const useData = () => {
 
             if (data) {
                 setTheDataObject({ ...theDataObject, links: newArr })
-                showToast('Nowy link jest dodany!', 'success');
+                showToast('Nowy link jest dodany! Nie zapomnij go aktywować :)', 'success');
             }
         } catch (error) { }
     }
@@ -258,7 +266,7 @@ export const useData = () => {
 
             if (data) {
                 setTheDataObject({ ...theDataObject, products: newArr })
-                showToast('Nowy produkt jest dodany!', 'success');
+                showToast('Nowy produkt jest dodany! Nie zapomnij go aktywować :)', 'success');
             }
         } catch (error) { }
     }
@@ -286,6 +294,10 @@ export const useData = () => {
 
             case 'single-product-add-image':
                 setProducts(products.map(el => (el.id === id ? { ...el, photofile: value.target.files[0] } : el)))
+                break;
+
+            case 'single-product-delete-image':
+                setProducts(products.map(el => (el.id === id ? { ...el, imageUrl: '' } : el)))
                 break;
 
             case 'single-product-active':

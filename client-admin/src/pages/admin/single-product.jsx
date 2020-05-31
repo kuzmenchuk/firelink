@@ -4,13 +4,17 @@ import { useParams, useHistory } from 'react-router-dom'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
-import UploadFiles from '../../components/admin/upload-files';
+import UploadFiles from '../../components/admin/upload-files.component';
 import InputFields from '../../components/admin/input-fields.component';
 import DataContext from '../../context/card-data.context';
 
 import DataChangingTemplate from '../../templates/data-changing-page.template';
+
+import './single-product.styles.scss';
 
 function SingleProduct() {
     const { products, changeProducts } = useContext(DataContext)
@@ -42,7 +46,7 @@ function SingleProduct() {
                             color="primary"
                         />
                     }
-                    label='Widoczność produktu'
+                    label={products[productIndex].active ? 'Aktywny' : 'Nieaktywny'}
                 />
                 <br />
                 <br />
@@ -53,6 +57,7 @@ function SingleProduct() {
                     label='Nazwa linku'
                     onChange={(event) => changeProducts('single-product-form-data', ProductId, event)}
                     value={products[productIndex].header}
+                    maxLength='48'
                 />
                 <InputFields
                     name='subheader'
@@ -61,6 +66,7 @@ function SingleProduct() {
                     label='Podtytuł'
                     onChange={(event) => changeProducts('single-product-form-data', ProductId, event)}
                     value={products[productIndex].subheader}
+                    maxLength='48'
                 />
                 <InputFields
                     name='href'
@@ -70,11 +76,36 @@ function SingleProduct() {
                     onChange={(event) => changeProducts('single-product-form-data', ProductId, event)}
                     value={products[productIndex].href}
                 />
-                <br />
-                <UploadFiles
-                    onChange={(event) => changeProducts('single-product-add-image', ProductId, event)}
-                    img={products[productIndex].photofile}
-                />
+
+                <h4>Zdjęcie produktu</h4>
+                {
+                    products[productIndex].imageUrl ? (
+                        <div className="product-image__section">
+                            <div className="product-image__outter">
+                                <div className="product-image__inner">
+                                    <img src={products[productIndex].imageUrl} alt={products[productIndex].header} />
+                                </div>
+                            </div>
+                        </div>
+                    ) :
+                        <div><p>Brak zdjęcia, dodaj klikając przycisk poniżej</p></div>
+                }
+                <div style={{ display: 'flex', width: '100%' }}>
+                    <UploadFiles onChange={(event) => changeProducts('single-product-add-image', ProductId, event)} />
+                    {
+                        products[productIndex].imageUrl ? (
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                startIcon={<DeleteIcon />}
+                                onClick={(event) => changeProducts('single-product-delete-image', ProductId, event)}
+                            >
+                                Usuń
+                            </Button>
+
+                        ) : null
+                    }
+                </div>
 
 
             </main>

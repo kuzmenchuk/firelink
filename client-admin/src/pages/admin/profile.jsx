@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 import DataContext from '../../context/card-data.context';
 
 import DataChangingTemplate from '../../templates/data-changing-page.template';
 
 import InputFields from '../../components/admin/input-fields.component';
-import UploadFiles from '../../components/admin/upload-files';
+import UploadFiles from '../../components/admin/upload-files.component';
 
 import './profile.styles.scss';
 
@@ -18,6 +21,23 @@ function About() {
       whatSave='profile'
     >
       <main className="about-page">
+
+        <h4>Zdjęcie profilu</h4>
+        <div className="avatar__section">
+          <div className="avatar">
+            <img src={profile.photoUrl} />
+          </div>
+          <UploadFiles onChange={(event) => changeProfile('add-image', event)} />
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<DeleteIcon />}
+            onClick={(event) => changeProfile('delete-image', event)}
+          >
+            Usuń
+          </Button>
+        </div>
+
         <InputFields
           name='fullname'
           input
@@ -25,6 +45,7 @@ function About() {
           label='Imię'
           onChange={event => changeProfile('form-data', event)}
           value={profile.fullname}
+          maxLength='40'
         />
         <InputFields
           name='description'
@@ -32,9 +53,8 @@ function About() {
           label='Opis'
           onChange={event => changeProfile('form-data', event)}
           value={profile.description}
+          maxLength='400'
         />
-
-        <UploadFiles onChange={(event) => changeProfile('add-image', event)} />
 
 
       </main>

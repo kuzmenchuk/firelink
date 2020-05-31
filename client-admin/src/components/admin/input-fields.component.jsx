@@ -1,5 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 import './input-fields.styles.scss';
 
@@ -19,6 +20,16 @@ export default function InputData(props) {
                 onChange={props.onChange}
                 multiline={!props.input}
                 rows={props.input ? null : "4"}
+                InputProps={{
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            {props.name === 'href' ? null : props.maxLength - props.value.length}
+                        </InputAdornment>
+                    )
+                }}
+                inputProps={{
+                    maxLength: props.maxLength
+                }}
             />
         </div>
     )

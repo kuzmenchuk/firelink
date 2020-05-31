@@ -1,41 +1,19 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom'
-import {
-    sortableContainer,
-    sortableElement,
-    sortableHandle,
-} from 'react-sortable-hoc';
-import arrayMove from 'array-move';
 
 import DataContext from '../../context/card-data.context';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
+
+import DragDrop from '../../components/admin/drag-n-drop.component';
+
 import DataChangingTemplate from '../../templates/data-changing-page.template';
-
-import './links.styles.scss';
-
-// Drag'n'Drop starts
-const DragHandle = sortableHandle(() => <span className="drag-handler">::</span>);
-const SortableContainer = sortableContainer(({ children }) => {
-    return <div className="Showcase__style__list Showcase__style__stylizedList">{children}</div>;
-});
 
 
 function Products() {
-    const { products, setProducts, setAnyChanges, changeProducts } = useContext(DataContext)
+    const { changeProducts } = useContext(DataContext)
 
-    const SortableItem = sortableElement(({ value, href }) => (
-        <div className="Showcase__style__item Showcase__style__stylizedItem">
-            <DragHandle />
-            <Link to={`/profile/products/${href}`}>{value}</Link>
-            <button onClick={() => changeProducts('delete-product', href)}>delete</button>
-        </div>
-    ));
-    const onSortEnd = ({ oldIndex, newIndex }) => {
-        setAnyChanges(true)
-        setProducts(arrayMove(products, oldIndex, newIndex))
-    };
-    // Drag'n'Drop ends + useContext
-    console.log(products)
 
 
     return (
@@ -43,12 +21,18 @@ function Products() {
             pageName='Twoje produkty'
             whatSave='products'
         >
-            <SortableContainer onSortEnd={onSortEnd} useDragHandle>
-                {products.map((value, index) => (
-                    <SortableItem key={value.id} index={index} value={value.header} href={value.id} />
-                ))}
-            </SortableContainer>
-            <button type="button" name="add-new-product" onClick={() => changeProducts('add-new-product')}>Dodaj nowy produkt</button>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '90%', paddingBottom: '100px' }}>
+                <div>
+                    <DragDrop type='products' />
+                </div>
+                <div className="add-icon">
+                    <Tooltip title="Dodać produkt" interactive arrow>
+                        <Fab color="primary" aria-label="add" onClick={() => changeProducts('add-new-product')} >
+                            <AddIcon />
+                        </Fab>
+                    </Tooltip>
+                </div>
+            </div>
         </DataChangingTemplate>
     )
 }

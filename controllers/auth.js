@@ -49,15 +49,14 @@ exports.postSignup = async (req, res, next) => {
             linkname: '',
             userId: user._id,
             profileAbout: {
-                description: '',
-                fullname: 'Your name',
-                photoUrl: 'https://mssg.me/static/avatars/avatar_default.svg'
+                description: 'Opis',
+                fullname: 'Imię',
+                photoUrl: `${config.get('domen')}images/avatar_default.svg`
             },
             design: {
                 background: {
-                    color: 'linear-gradient(135deg, rgb(81, 179, 247) 0%, rgba(81, 179, 247, 0.6) 100%)',
+                    color: '#8ED1FC',
                     isColor: true,
-                    imageName: '',
                     imageUrl: ''
                 },
                 branding: true
