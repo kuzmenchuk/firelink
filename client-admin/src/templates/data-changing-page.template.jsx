@@ -18,7 +18,6 @@ function DataChangingPage(props) {
         }
         window.history.back()
     }
-
     // alert about exit without unsaving - handlers on button clicking
     const handleMoveConfirm = () => {
         setIsOpen(false)

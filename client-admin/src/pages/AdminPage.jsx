@@ -34,6 +34,7 @@ function AdminPage() {
    }, [token, request])
 
    if (loading) return <Spinner intent='none' size={70} />
+   console.log(dataHook.design)
 
    return (
       <DataContext.Provider value={dataHook}>
@@ -51,7 +52,9 @@ function AdminPage() {
                      <App
                         theDataObject={dataHook.theDataObject}
                         profileData={dataHook.profile}
-                        links={dataHook.links}
+                        links={dataHook.links.filter(el => el.active)}
+                        design={dataHook.design}
+                        products={dataHook.products.filter(el => el.active)}
                      />
                }
 

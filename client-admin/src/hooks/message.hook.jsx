@@ -9,16 +9,16 @@ const AppToaster = Toaster.create({
 
 
 export const useMessage = () => {
-    const showToast = (msg, intent) => {
+    const showToast = (msg, intent, icon) => {
         switch (intent) {
             case 'error':
-                return AppToaster.show({ message: msg, intent: Intent.WARNING, icon: "warning-sign" });
+                return AppToaster.show({ message: msg, intent: Intent.WARNING, icon: icon ? icon : "warning-sign" });
 
             case 'success':
-                return AppToaster.show({ message: msg, intent: Intent.SUCCESS, icon: "tick" });
+                return AppToaster.show({ message: msg, intent: Intent.SUCCESS, icon: icon ? icon : "tick" });
 
             case 'primary':
-                return AppToaster.show({ message: msg, intent: Intent.PRIMARY, icon: "tick" });
+                return AppToaster.show({ message: msg, intent: Intent.PRIMARY, icon: icon ? icon : "tick" });
 
             default:
                 return null;

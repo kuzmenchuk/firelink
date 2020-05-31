@@ -22,20 +22,20 @@ function About() {
           input
           placeholder='Twoje Imię'
           label='Imię'
-          onChange={changeProfile}
+          onChange={event => changeProfile('form-data', event)}
           value={profile.fullname}
         />
         <InputFields
           name='description'
           placeholder='Opis'
           label='Opis'
-          onChange={changeProfile}
+          onChange={event => changeProfile('form-data', event)}
           value={profile.description}
         />
 
         <div className="form-group files color">
           <label>Wybierz swoje zdjęcie</label>
-          <input type="file" name="photofile" onChange={changeProfile} className="form-control" multiple="" />
+          <input type="file" name="photofile" onChange={event => changeProfile('image', event)} className="form-control" multiple="" />
         </div>
 
       </main>

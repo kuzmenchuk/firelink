@@ -65,6 +65,44 @@ exports.postProfile = async (req, res, next) => {
     }
 }
 
+// /api/data-change/card/design
+exports.postDesign = async (req, res, next) => {
+    try {
+        let {
+            color,
+            isColor,
+            imageUrl,
+            branding
+        } = req.body;
+
+        if (req.file) {
+            req.file.path ? imageUrl = config.get('domen') + req.file.path : null
+        }
+
+        const card = await Card.findOne({
+            userId: req.userId
+        })
+
+        card.design.background = {
+            color,
+            isColor,
+            imageUrl
+        }
+        card.design.branding = branding
+
+
+        await card.save()
+
+        res.status(201).json({
+            message: 'Zmieniłeś dane na swoim linku!'
+        })
+
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
+    }
+}
+
 // change Card Links
 // /api/data-change/card/links
 exports.postLinks = async (req, res, next) => {
@@ -94,7 +132,8 @@ exports.postSingleLink = async (req, res, next) => {
             id,
             header,
             subheader,
-            href
+            href,
+            active
         } = req.body;
 
         const card = await Card.findOne({
@@ -105,11 +144,74 @@ exports.postSingleLink = async (req, res, next) => {
         myLink.header = header;
         myLink.subheader = subheader;
         myLink.href = href;
+        myLink.active = active;
 
         await card.save()
 
         res.status(201).json({
             message: 'Zmieniłeś dane na swoim linku!'
+        })
+
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
+    }
+}
+
+// change Card Products
+// /api/data-change/card/products
+exports.postProducts = async (req, res, next) => {
+    try {
+        const card = await Card.findOne({
+            userId: req.userId
+        })
+        console.log(req.body)
+
+        card.products = req.body;
+
+        await card.save()
+
+        res.status(201).json({
+            message: 'Zmieniłeś dane na swoim linku!'
+        })
+
+    } catch (e) {
+        if (!e.statusCode) e.statusCode = 500;
+        next(e);
+    }
+}
+
+// /api/data-change/card/single-link
+exports.postSingleProduct = async (req, res, next) => {
+    try {
+        let {
+            id,
+            active,
+            header,
+            subheader,
+            href,
+            imageUrl
+        } = req.body;
+
+        if (req.file) {
+            req.file.path ? imageUrl = config.get('domen') + req.file.path : null
+        }
+
+        const card = await Card.findOne({
+            userId: req.userId
+        })
+
+        const myProduct = card.products.find(card => card.id === id);
+        myProduct.active = active;
+        myProduct.header = header;
+        myProduct.subheader = subheader;
+        myProduct.href = href;
+        myProduct.imageUrl = imageUrl;
+
+        await card.save()
+
+        res.status(201).json({
+            message: 'Zmieniłeś dane o swoim produkcie!'
         })
 
     } catch (e) {

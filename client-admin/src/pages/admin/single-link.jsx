@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
-import { Spinner } from '@blueprintjs/core';
+import { Spinner, Switch } from '@blueprintjs/core';
 
 import InputFields from '../../components/admin/input-fields.component';
 import DataContext from '../../context/card-data.context';
@@ -8,7 +8,7 @@ import DataContext from '../../context/card-data.context';
 import DataChangingTemplate from '../../templates/data-changing-page.template';
 
 function SingleLink() {
-    const { links, setLinks, anyChanges, setAnyChanges } = useContext(DataContext)
+    const { links, changeLinks } = useContext(DataContext)
 
     const linkId = useParams().id
     const history = useHistory()
@@ -20,11 +20,6 @@ function SingleLink() {
         if (searchLink === undefined) history.push('/profile')
     }, [])
 
-    const changeHandler = event => {
-        if (!anyChanges) setAnyChanges(true)
-        setLinks(links.map(el => (el.id === linkId ? { ...el, [event.target.name]: event.target.value } : el)))
-    }
-
     if (!searchLink) return <Spinner intent='none' size={70} />
 
     return (
@@ -34,12 +29,13 @@ function SingleLink() {
             link={links[linkIndex]}
         >
             <main className="about-page">
+                <Switch checked={links[linkIndex].active} label={'Widoczność linku'} onChange={() => changeLinks('single-link-active', linkId)} />
                 <InputFields
                     name='header'
                     input
                     placeholder='Nazwa linku'
                     label='Nazwa linku'
-                    onChange={changeHandler}
+                    onChange={(event) => changeLinks('single-link-form-data', linkId, event)}
                     value={links[linkIndex].header}
                 />
                 <InputFields
@@ -47,7 +43,7 @@ function SingleLink() {
                     input
                     placeholder='Podtytuł'
                     label='Podtytuł'
-                    onChange={changeHandler}
+                    onChange={(event) => changeLinks('single-link-form-data', linkId, event)}
                     value={links[linkIndex].subheader}
                 />
                 <InputFields
@@ -55,7 +51,7 @@ function SingleLink() {
                     input
                     placeholder='URL'
                     label='URL'
-                    onChange={changeHandler}
+                    onChange={(event) => changeLinks('single-link-form-data', linkId, event)}
                     value={links[linkIndex].href}
                 />
 

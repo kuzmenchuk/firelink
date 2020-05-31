@@ -11,9 +11,15 @@ function Products(props) {
               <li key={data.id}>
                 <a href={data.href} rel="noopener noreferrer" target="_blank">
                   <div className="product__image_outter">
-                    <div className="product__image_inner">
-                      <img src={data.imgUrl} alt={data.header} />
-                    </div>
+                    {
+                      data.imageUrl ? (
+                        <div className="product__image_inner">
+                          <img src={data.imageUrl} alt={data.header} />
+                        </div>
+                      ) :
+                        <div style={{ width: '100%', height: '100%', color: '#fafafa' }}></div>
+                    }
+
                   </div>
 
                   <div className="product__text">

@@ -1,47 +1,49 @@
-.Showcase__style__stylizedList {
+.dnd-list__box {
     position: relative;
     z-index: 0;
     background-color: #f3f3f3;
     border: 1px solid #efefef;
     border-radius: 3px;
     outline: none;
-}
-
-.Showcase__style__list {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
     width: 100%;
 }
 
-.Showcase__style__item {
+.dnd-list__item {
     position: relative;
     border-bottom: 1px solid #999;
-}
-
-.Showcase__style__stylizedItem {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-    -ms-flex-align: center;
     align-items: center;
     width: 100%;
     padding: 10px;
     background-color: #fff;
     border-bottom: 1px solid #efefef;
     box-sizing: border-box;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     color: #333;
     font-weight: 400;
+    justify-content: space-between;
+
+    .dnd-list__item_main {
+        display: flex;
+        align-items: center;
+
+        span {
+            display: block;
+        }
+    }
+
+    .dnd-list__item_secondary {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
 }
 
 .drag-handler {
     display: inline-block;
-    padding-right: 5px;
+    padding-right: 15px;
     cursor: all-scroll;
 }

@@ -23,7 +23,7 @@ export const useAuth = () => {
         setToken(null)
         setUserId(null)
         localStorage.removeItem(storageName)
-        if (doToast) showToast('Do zobaczenia, Partnerze!', 'success')
+        if (doToast) showToast('Do zobaczenia, Partnerze!', 'error', 'hand')
     }, [])
 
     useEffect(() => {

@@ -18,9 +18,6 @@ const cardSchema = new Schema({
             isColor: {
                 type: Boolean
             },
-            imageName: {
-                type: String
-            },
             imageUrl: {
                 type: String
             }
@@ -33,6 +30,9 @@ const cardSchema = new Schema({
         id: {
             type: String,
             // required: true
+        },
+        active: {
+            type: Boolean
         },
         header: {
             type: String,
@@ -49,19 +49,26 @@ const cardSchema = new Schema({
     }],
     messengers: [{}],
     products: [{
+        id: {
+            type: String,
+            // required: true
+        },
+        active: {
+            type: Boolean
+        },
         header: {
             type: String,
-            required: true
+            // required: true
         },
         subheader: {
             type: String,
-            required: true
+            //required: true
         },
         href: {
             type: String,
-            required: true
+            //required: true
         },
-        imgUrl: {
+        imageUrl: {
             type: String
         }
     }],

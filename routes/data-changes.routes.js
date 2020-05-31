@@ -16,6 +16,13 @@ router.post(
     CardDataController.postProfile
 )
 
+// /api/data-change/card/design
+router.post(
+    '/card/design',
+    isAuth,
+    CardDataController.postDesign
+)
+
 // /api/data-change/card/links
 router.post(
     '/card/links',
@@ -28,6 +35,20 @@ router.post(
     '/card/single-link',
     isAuth,
     CardDataController.postSingleLink
+)
+
+// /api/data-change/card/products
+router.post(
+    '/card/products',
+    isAuth,
+    CardDataController.postProducts
+)
+
+// /api/data-change/card/single-product
+router.post(
+    '/card/single-product',
+    isAuth,
+    CardDataController.postSingleProduct
 )
 
 // /api/data-change/get-data

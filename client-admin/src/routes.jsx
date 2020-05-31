@@ -10,6 +10,7 @@ import Links from './pages/admin/links';
 import SingleLink from './pages/admin/single-link';
 import Messengers from './pages/admin/messengers';
 import Products from './pages/admin/products';
+import SingleProduct from './pages/admin/single-product';
 
 import AuthPage from './pages/AuthPage';
 
@@ -62,6 +63,9 @@ export const adminRoutes = () => {
             </Route>
             <Route path="/profile/products" exact>
                 <Products />
+            </Route>
+            <Route path="/profile/products/:id">
+                <SingleProduct />
             </Route>
             <Redirect to="/profile" />
         </Switch>

@@ -8,9 +8,10 @@
 }
 
 .row-left {
-  flex-basis: 25%;
+  flex-basis: 400px;
   background-color: #fff;
   padding: 0 15px;
+  overflow-y: scroll;
 
   .header__hi {
     font-size: 34px;
