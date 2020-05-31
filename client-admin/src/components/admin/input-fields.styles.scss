@@ -1,80 +1,97 @@
 .input-data {
-    margin-bottom: 16px;
+    margin-bottom: 32px;
+    width: 100%;
 
-    .input-data__name {
-        display: flex;
+    .input-data__inner {
+        width: 100%;
 
-        label {
-            display: block;
-            color: #000;
-            font-weight: 500;
-            font-size: 14px;
+        input,
+        textarea {
+            font-size: 16px;
             line-height: 20px;
-            margin-bottom: 6px;
         }
     }
-
-    .input-data__input {
-        position: relative;
-        display: flex;
-
-        .input-data__input_inner {
-            width: 100%;
-            position: relative;
-
-            input {
-                font-family: Inter, sans-serif;
-                font-size: 16px;
-                font-weight: 400;
-                height: 42px;
-                line-height: 24px;
-                border: 1px solid #c7c7cc;
-                border-radius: 4px;
-                width: 100%;
-                padding: 11px 16px;
-                color: #2b303a;
-                transition: border-color .3s ease, background-color .3s ease;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                -webkit-appearance: none;
-
-                &:hover {
-                    border-color: #8e8e93;
-                }
-
-                &:focus {
-                    outline: 0;
-                    border-color: #007aff;
-                    box-shadow: none;
-                }
-            }
-
-            textarea {
-                min-height: 72px;
-                font-family: Inter, sans-serif;
-                font-size: 16px;
-                font-weight: 400;
-                line-height: 24px;
-                border: 1px solid #c7c7cc;
-                border-radius: 4px;
-                width: 100%;
-                padding: 11px 16px;
-                color: #2b303a;
-                resize: none;
-                transition: border-color .3s ease, background-color .3s ease;
-
-                &:hover {
-                    border-color: #8e8e93;
-                }
-
-                &:focus {
-                    outline: 0;
-                    border-color: #007aff;
-                    box-shadow: none;
-                }
-            }
-        }
-    }
-
 }
+
+
+
+// .input-data {
+//     margin-bottom: 16px;
+
+//     .input-data__name {
+//         display: flex;
+
+//         label {
+//             display: block;
+//             color: #000;
+//             font-weight: 500;
+//             font-size: 14px;
+//             line-height: 20px;
+//             margin-bottom: 6px;
+//         }
+//     }
+
+//     .input-data__input {
+//         position: relative;
+//         display: flex;
+
+//         .input-data__input_inner {
+//             width: 100%;
+//             position: relative;
+
+//             input {
+//                 font-family: Inter, sans-serif;
+//                 font-size: 16px;
+//                 font-weight: 400;
+//                 height: 42px;
+//                 line-height: 24px;
+//                 border: 1px solid #c7c7cc;
+//                 border-radius: 4px;
+//                 width: 100%;
+//                 padding: 11px 16px;
+//                 color: #2b303a;
+//                 transition: border-color .3s ease, background-color .3s ease;
+//                 overflow: hidden;
+//                 text-overflow: ellipsis;
+//                 white-space: nowrap;
+//                 -webkit-appearance: none;
+
+//                 &:hover {
+//                     border-color: #8e8e93;
+//                 }
+
+//                 &:focus {
+//                     outline: 0;
+//                     border-color: #007aff;
+//                     box-shadow: none;
+//                 }
+//             }
+
+//             textarea {
+//                 min-height: 72px;
+//                 font-family: Inter, sans-serif;
+//                 font-size: 16px;
+//                 font-weight: 400;
+//                 line-height: 24px;
+//                 border: 1px solid #c7c7cc;
+//                 border-radius: 4px;
+//                 width: 100%;
+//                 padding: 11px 16px;
+//                 color: #2b303a;
+//                 resize: none;
+//                 transition: border-color .3s ease, background-color .3s ease;
+
+//                 &:hover {
+//                     border-color: #8e8e93;
+//                 }
+
+//                 &:focus {
+//                     outline: 0;
+//                     border-color: #007aff;
+//                     box-shadow: none;
+//                 }
+//             }
+//         }
+//     }
+
+// }

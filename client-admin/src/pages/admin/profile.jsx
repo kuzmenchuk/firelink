@@ -5,6 +5,7 @@ import DataContext from '../../context/card-data.context';
 import DataChangingTemplate from '../../templates/data-changing-page.template';
 
 import InputFields from '../../components/admin/input-fields.component';
+import UploadFiles from '../../components/admin/upload-files';
 
 import './profile.styles.scss';
 
@@ -33,10 +34,8 @@ function About() {
           value={profile.description}
         />
 
-        <div className="form-group files color">
-          <label>Wybierz swoje zdjęcie</label>
-          <input type="file" name="photofile" onChange={event => changeProfile('image', event)} className="form-control" multiple="" />
-        </div>
+        <UploadFiles onChange={(event) => changeProfile('add-image', event)} />
+
 
       </main>
     </DataChangingTemplate>

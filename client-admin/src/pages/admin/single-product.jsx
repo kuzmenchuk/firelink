@@ -1,7 +1,12 @@
 import React, { useContext, useLayoutEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
-import { Spinner, Switch } from '@blueprintjs/core';
 
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+
+
+import UploadFiles from '../../components/admin/upload-files';
 import InputFields from '../../components/admin/input-fields.component';
 import DataContext from '../../context/card-data.context';
 
@@ -19,7 +24,7 @@ function SingleProduct() {
         if (searchLink === undefined) history.push('/profile')
     }, [])
 
-    if (!searchLink) return <Spinner intent='none' size={70} />
+    if (!searchLink) return <CircularProgress />
 
     return (
         <DataChangingTemplate
@@ -28,7 +33,19 @@ function SingleProduct() {
             link={products[productIndex]}
         >
             <main className="about-page">
-                <Switch checked={products[productIndex].active} label={'Widoczność produktu'} onChange={() => changeProducts('single-product-active')} />
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={products[productIndex].active}
+                            onChange={() => changeProducts('single-product-active', ProductId)}
+                            name="checkedB"
+                            color="primary"
+                        />
+                    }
+                    label='Widoczność produktu'
+                />
+                <br />
+                <br />
                 <InputFields
                     name='header'
                     input
@@ -54,11 +71,11 @@ function SingleProduct() {
                     value={products[productIndex].href}
                 />
                 <br />
-                <br />
-                <div className="form-group files color">
-                    <label>Wybierz zdjęcie</label>
-                    <input type="file" name="photofile" onChange={(event) => changeProducts('single-product-form-image', ProductId, event)} className="form-control" multiple="" />
-                </div>
+                <UploadFiles
+                    onChange={(event) => changeProducts('single-product-add-image', ProductId, event)}
+                    img={products[productIndex].photofile}
+                />
+
 
             </main>
         </DataChangingTemplate>

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Spinner } from '@blueprintjs/core';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {
   BrowserRouter as Router,
@@ -9,14 +10,25 @@ import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
 import { AuthContext } from './context/AuthContext';
 
+import './app.scss'
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
 
 function App() {
   const { login, logout, token, userId, ready } = useAuth()
   const isAuth = !!token;
+  const classes = useStyles();
 
   const routes = useRoutes(isAuth);
 
-  if (!ready) return <Spinner intent='none' size={70} />
+  if (!ready) return <div className={classes.root}><LinearProgress /></div>
 
 
   return (

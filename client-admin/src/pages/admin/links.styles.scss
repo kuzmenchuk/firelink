@@ -3,7 +3,7 @@
     z-index: 0;
     background-color: #f3f3f3;
     border: 1px solid #efefef;
-    border-radius: 3px;
+    border-radius: 10px;
     outline: none;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
@@ -24,6 +24,12 @@
     color: #333;
     font-weight: 400;
     justify-content: space-between;
+    border-radius: 10px;
+    margin-bottom: 8px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
 
     .dnd-list__item_main {
         display: flex;
@@ -39,6 +45,10 @@
         flex-direction: column;
         justify-content: flex-end;
         align-items: flex-end;
+
+        label {
+            margin-right: 0;
+        }
     }
 }
 

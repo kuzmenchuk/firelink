@@ -78,7 +78,7 @@ export const useData = () => {
                 setProfile({ ...profile, [value.target.name]: value.target.value });
                 break;
 
-            case 'image':
+            case 'add-image':
                 setProfile({ ...profile, photofile: value.target.files[0] });
                 break;
 
@@ -284,7 +284,7 @@ export const useData = () => {
                 setProducts(products.map(el => (el.id === id ? { ...el, [value.target.name]: value.target.value } : el)))
                 break;
 
-            case 'single-product-form-image':
+            case 'single-product-add-image':
                 setProducts(products.map(el => (el.id === id ? { ...el, photofile: value.target.files[0] } : el)))
                 break;
 

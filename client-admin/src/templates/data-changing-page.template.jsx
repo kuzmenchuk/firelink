@@ -4,6 +4,13 @@ import DataContext from '../context/card-data.context';
 
 import { Alert, Intent } from '@blueprintjs/core';
 
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
 import Header from '../components/admin/data-changing-header.component';
 
 
@@ -38,7 +45,30 @@ function DataChangingPage(props) {
                 link={props.link}
             />
 
-            <Alert
+            <Dialog
+                open={isOpen}
+                onClose={handleMoveCancel}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                className="alert-popup"
+            >
+                <DialogTitle id="alert-dialog-title">Na pewno chcesz opuścić stronę?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Wszystkie niezapisane dane zostaną <b>utracone</b>.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleMoveCancel} variant="contained" autoFocus>
+                        Zostań na stronie
+                    </Button>
+                    <Button onClick={handleMoveConfirm} variant="contained" color="primary">
+                        Opuść
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
+            {/* <Alert
                 className=''
                 cancelButtonText="Zostań na stronie"
                 confirmButtonText="Opuść"
@@ -51,7 +81,7 @@ function DataChangingPage(props) {
                 <p>
                     Na pewno chcesz opuścić stronę? Wszystkie niezapisane dane zostaną <b>utracone</b>.
                 </p>
-            </Alert>
+            </Alert> */}
 
             {props.children}
         </>

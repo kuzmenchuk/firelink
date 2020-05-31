@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 
 // import List from '@material-ui/core/List';
+import Button from '@material-ui/core/Button';
 
 import { AuthContext } from '../../context/AuthContext';
 
@@ -62,7 +63,14 @@ function MainMenu() {
                 </ul>
             </div>
             <div style={{ paddingBottom: '10px' }}>
-                <button type="button" class="bp3-button" onClick={logout}>Wyloguj się</button>
+                <Button
+                    variant="contained"
+                    color="default"
+                    onClick={logout}
+                //startIcon={<CloudUploadIcon />}
+                >
+                    Wyloguj się
+                </Button>
             </div>
         </div>
     )

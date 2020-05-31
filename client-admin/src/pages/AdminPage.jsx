@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 
-import { Spinner } from '@blueprintjs/core';
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import { adminRoutes } from '../routes';
 
@@ -13,10 +14,20 @@ import { AuthContext } from '../context/AuthContext';
 
 import './admin-page.scss';
 
+const useStyles = makeStyles((theme) => ({
+   root: {
+      width: '100%',
+      '& > * + *': {
+         marginTop: theme.spacing(2),
+      },
+   },
+}));
+
 function AdminPage() {
    const routes = adminRoutes();
    const { loading, request } = useHttp()
    const { token } = useContext(AuthContext)
+   const classes = useStyles();
 
    const dataHook = useData();
 
@@ -33,8 +44,7 @@ function AdminPage() {
       fetchData()
    }, [token, request])
 
-   if (loading) return <Spinner intent='none' size={70} />
-   console.log(dataHook.design)
+   if (loading) return <div className={classes.root}><LinearProgress /></div>
 
    return (
       <DataContext.Provider value={dataHook}>
@@ -47,7 +57,7 @@ function AdminPage() {
                {
                   loading
                      ?
-                     <Spinner intent='none' size={70} />
+                     <div className={classes.root}><LinearProgress /></div>
                      :
                      <App
                         theDataObject={dataHook.theDataObject}
