@@ -17,7 +17,7 @@ import DataChangingTemplate from '../../templates/data-changing-page.template';
 import './single-product.styles.scss';
 
 function SingleProduct() {
-    const { products, changeProducts } = useContext(DataContext)
+    const { products, changeProducts, imagePreview } = useContext(DataContext)
     const ProductId = useParams().id
     const history = useHistory()
 
@@ -83,7 +83,7 @@ function SingleProduct() {
                         <div className="product-image__section">
                             <div className="product-image__outter">
                                 <div className="product-image__inner">
-                                    <img src={products[productIndex].imageUrl} alt={products[productIndex].header} />
+                                    <img src={imagePreview ? imagePreview : products[productIndex].imageUrl} alt={products[productIndex].header} />
                                 </div>
                             </div>
                         </div>

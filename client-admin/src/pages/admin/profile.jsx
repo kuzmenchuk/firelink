@@ -13,7 +13,7 @@ import UploadFiles from '../../components/admin/upload-files.component';
 import './profile.styles.scss';
 
 function About() {
-  const { profile, changeProfile } = useContext(DataContext)
+  const { profile, changeProfile, imagePreview } = useContext(DataContext)
 
   return (
     <DataChangingTemplate
@@ -25,7 +25,7 @@ function About() {
         <h4>Zdjęcie profilu</h4>
         <div className="avatar__section">
           <div className="avatar">
-            <img src={profile.photoUrl} />
+            <img src={imagePreview ? imagePreview : profile.photoUrl} />
           </div>
           <UploadFiles onChange={(event) => changeProfile('add-image', event)} />
           <Button

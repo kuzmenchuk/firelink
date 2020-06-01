@@ -137,7 +137,7 @@ export default function LogIn() {
                     </Grid>
                     <Grid item>
                         <Link to="/signup" variant="body2">
-                            {"Nie masz jeszcze konta? Zarejestruj się"}
+                            Nie masz jeszcze konta? Zarejestruj się
                         </Link>
                     </Grid>
                 </Grid>

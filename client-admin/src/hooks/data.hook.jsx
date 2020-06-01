@@ -4,6 +4,7 @@ import { v1 as uuidv1 } from 'uuid';
 
 import { useHttp } from './http.hook';
 import { useMessage } from './message.hook';
+import { generateBase64FromImage } from '../utils/image-preview';
 
 const data = {
     linkname: '',
@@ -48,6 +49,7 @@ export const useData = () => {
     const { showToast } = useMessage();
     const { loading, request } = useHttp(); // request to server hook
     const loadingApi = loading;
+    const [imagePreview, setImagePreview] = useState(null)
 
     // The Main State
     const [theDataObject, setTheDataObject] = useState(data)
@@ -79,6 +81,7 @@ export const useData = () => {
                 break;
 
             case 'add-image':
+                generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setProfile({ ...profile, photofile: value.target.files[0] });
                 break;
 
@@ -127,6 +130,7 @@ export const useData = () => {
                 break;
 
             case 'add-image':
+                generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setDesign({ ...design, photofile: value.target.files[0] })
                 break;
 
@@ -293,6 +297,7 @@ export const useData = () => {
                 break;
 
             case 'single-product-add-image':
+                generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setProducts(products.map(el => (el.id === id ? { ...el, photofile: value.target.files[0] } : el)))
                 break;
 
@@ -365,6 +370,7 @@ export const useData = () => {
         changeMessengers,
         anyChanges, setAnyChanges,
         loadingApi,
+        imagePreview,
         exit
     }
 }

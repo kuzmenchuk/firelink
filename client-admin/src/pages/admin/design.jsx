@@ -31,7 +31,7 @@ const StyledBackground = styled.div`
         `;
 
 function Design() {
-    const { design, changeDesign } = useContext(DataContext)
+    const { design, changeDesign, imagePreview } = useContext(DataContext)
 
 
     return (
@@ -90,7 +90,7 @@ function Design() {
                             <div className="background-image__section">
                                 <div className="background-image">
                                     <StyledBackground
-                                        background={design.background.imageUrl}
+                                        background={imagePreview ? imagePreview : design.background.imageUrl}
                                     />
                                 </div>
                                 <div style={{ display: 'flex', width: '100%' }}>

@@ -14,6 +14,7 @@ import SingleProduct from './pages/admin/single-product';
 
 import AuthPage from './pages/AuthPage';
 import LogIn from './pages/login';
+import SignUp from './pages/signup';
 
 
 export const useRoutes = (isAuth) => {
@@ -34,7 +35,7 @@ export const useRoutes = (isAuth) => {
                 <LogIn />
             </Route>
             <Route path="/signup" exact>
-                <AuthPage signup />
+                <SignUp />
             </Route>
             <Redirect to="/login" />
         </Switch>
