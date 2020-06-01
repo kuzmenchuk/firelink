@@ -35,11 +35,9 @@ export default function Linkpage() {
         async function fetchData() {
             try {
                 const fetched = await request(`/api/${linkId}`, 'GET')
-                console.log(fetched)
                 if (fetched) {
                     setCard(fetched)
                 } else {
-                    console.log('wtf')
                     history.push('/')
                 }
             } catch (e) { }

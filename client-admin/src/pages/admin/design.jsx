@@ -88,21 +88,42 @@ function Design() {
                         <>
                             <h4>Zdjęcie tła</h4>
                             <div className="background-image__section">
-                                <div className="background-image">
-                                    <StyledBackground
-                                        background={imagePreview ? imagePreview : design.background.imageUrl}
-                                    />
-                                </div>
+                                {
+                                    design.background.imageUrl || imagePreview ? (
+                                        <div className="background-image">
+                                            <StyledBackground
+                                                background={imagePreview ? imagePreview : design.background.imageUrl}
+                                            />
+                                        </div>
+                                    )
+                                        : <div><p>Brak zdjęcia, dodaj klikając przycisk poniżej</p></div>
+                                }
+
                                 <div style={{ display: 'flex', width: '100%' }}>
                                     <UploadFiles onChange={(event) => changeDesign('add-image', event)} />
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        startIcon={<DeleteIcon />}
-                                        onClick={(event) => changeDesign('delete-image', event)}
-                                    >
-                                        Usuń
-                                    </Button>
+                                    {
+                                        design.background.imageUrl && imagePreview === null && (
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                startIcon={<DeleteIcon />}
+                                                onClick={(event) => changeDesign('delete-image', event)}
+                                            >
+                                                Usuń
+                                            </Button>
+                                        )
+                                    }
+                                    {
+                                        imagePreview && (
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={(event) => changeDesign('reset-image', event)}
+                                            >
+                                                Resetuj
+                                            </Button>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </>

@@ -14,6 +14,7 @@ import './profile.styles.scss';
 
 function About() {
   const { profile, changeProfile, imagePreview } = useContext(DataContext)
+  console.log(imagePreview)
 
   return (
     <DataChangingTemplate
@@ -36,6 +37,17 @@ function About() {
           >
             Usuń
           </Button>
+          {
+            imagePreview && (
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={(event) => changeProfile('reset-image', event)}
+              >
+                Resetuj
+              </Button>
+            )
+          }
         </div>
 
         <InputFields

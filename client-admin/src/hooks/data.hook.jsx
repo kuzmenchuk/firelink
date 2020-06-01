@@ -83,10 +83,16 @@ export const useData = () => {
             case 'add-image':
                 generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setProfile({ ...profile, photofile: value.target.files[0] });
+                value.target.value = ''
                 break;
 
             case 'delete-image':
                 setProfile({ ...profile, photoUrl: 'http://localhost:5000/images/avatar_default.svg' });
+                break;
+
+            case 'reset-image':
+                setImagePreview(null)
+                setProfile({ ...profile, photoUrl: theDataObject.profileAbout.photoUrl, photofile: null });
                 break;
 
             default:
@@ -108,6 +114,7 @@ export const useData = () => {
                 setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
                 window.history.back()
                 showToast(data.message, 'success');
+                setImagePreview(null)
                 setAnyChanges(false)
             }
         } catch (error) { }
@@ -132,10 +139,16 @@ export const useData = () => {
             case 'add-image':
                 generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setDesign({ ...design, photofile: value.target.files[0] })
+                value.target.value = ''
                 break;
 
             case 'delete-image':
                 setDesign({ ...design, background: { ...design.background, imageUrl: '' } })
+                break;
+
+            case 'reset-image':
+                setImagePreview(null)
+                setDesign({ ...design, background: { ...design.background, imageUrl: theDataObject.design.background.imageUrl }, photofile: null });
                 break;
 
             case 'branding':
@@ -162,6 +175,7 @@ export const useData = () => {
                 setTheDataObject({ ...theDataObject, design })
                 window.history.back()
                 showToast(data.message, 'success');
+                setImagePreview(null)
                 setAnyChanges(false)
             }
         } catch (error) { }
@@ -299,10 +313,17 @@ export const useData = () => {
             case 'single-product-add-image':
                 generateBase64FromImage(value.target.files[0]).then(file => setImagePreview(file)).catch(e => setImagePreview(null));
                 setProducts(products.map(el => (el.id === id ? { ...el, photofile: value.target.files[0] } : el)))
+                value.target.value = ''
                 break;
 
             case 'single-product-delete-image':
                 setProducts(products.map(el => (el.id === id ? { ...el, imageUrl: '' } : el)))
+                break;
+
+            case 'single-product-reset-image':
+                setImagePreview(null)
+                const index = products.findIndex(el => el.id === id)
+                setProducts(products.map(el => (el.id === id ? { ...el, imageUrl: theDataObject.products[index].imageUrl, photofile: null } : el)))
                 break;
 
             case 'single-product-active':
@@ -344,6 +365,7 @@ export const useData = () => {
                 setTheDataObject({ ...theDataObject, products })
                 window.history.back()
                 showToast(data.message, 'success');
+                setImagePreview(null)
                 setAnyChanges(false)
             }
         } catch (error) { }

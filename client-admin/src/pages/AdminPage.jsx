@@ -46,8 +46,6 @@ function AdminPage() {
 
    if (loading) return <div className={classes.root}><LinearProgress /></div>
 
-   console.log(dataHook.theDataObject.linkname)
-
    return (
       <DataContext.Provider value={dataHook}>
          <div className="container">

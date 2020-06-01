@@ -79,7 +79,7 @@ function SingleProduct() {
 
                 <h4>Zdjęcie produktu</h4>
                 {
-                    products[productIndex].imageUrl ? (
+                    products[productIndex].imageUrl || imagePreview ? (
                         <div className="product-image__section">
                             <div className="product-image__outter">
                                 <div className="product-image__inner">
@@ -87,13 +87,12 @@ function SingleProduct() {
                                 </div>
                             </div>
                         </div>
-                    ) :
-                        <div><p>Brak zdjęcia, dodaj klikając przycisk poniżej</p></div>
+                    ) : <div><p>Brak zdjęcia, dodaj klikając przycisk poniżej</p></div>
                 }
                 <div style={{ display: 'flex', width: '100%' }}>
                     <UploadFiles onChange={(event) => changeProducts('single-product-add-image', ProductId, event)} />
                     {
-                        products[productIndex].imageUrl ? (
+                        products[productIndex].imageUrl && imagePreview === null && (
                             <Button
                                 variant="contained"
                                 color="secondary"
@@ -103,7 +102,19 @@ function SingleProduct() {
                                 Usuń
                             </Button>
 
-                        ) : null
+                        )
+                    }
+
+                    {
+                        imagePreview && (
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={(event) => changeProducts('single-product-reset-image', event)}
+                            >
+                                Resetuj
+                            </Button>
+                        )
                     }
                 </div>
 

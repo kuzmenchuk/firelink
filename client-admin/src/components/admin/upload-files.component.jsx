@@ -25,7 +25,7 @@ const UploadFiles = (props) => {
                 onChange={props.onChange}
             />
             <label htmlFor="contained-button-file">
-                <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera />}>
+                <Button variant="contained" color="primary" component="span" startIcon={<PhotoCamera />} style={{ marginRight: '10px' }}>
                     Upload
                 </Button>
             </label>

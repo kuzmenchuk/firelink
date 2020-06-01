@@ -27,12 +27,12 @@ const MENU_ITEMS = [
         ico: () => <GiPencilBrush />,
         key: 2
     },
-    {
-        linkToHref: '/profile/m',
-        linkToName: 'Messengery',
-        ico: () => <IoMdChatboxes />,
-        key: 3
-    },
+    // {
+    //     linkToHref: '/profile/m',
+    //     linkToName: 'Messengery',
+    //     ico: () => <IoMdChatboxes />,
+    //     key: 3
+    // },
     {
         linkToHref: '/profile/links',
         linkToName: 'Twoje linki',
