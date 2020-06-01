@@ -9,9 +9,15 @@ node_modules
 # testing
 /coverage
 
-# production
-/build
-build
+# # production
+# /build
+# build
+
+public
+src
+
+/public
+/src
 
 # misc
 .DS_Store
