@@ -24,7 +24,9 @@ exports.postSignup = async (req, res, next) => {
 
         const {
             email,
-            password
+            password,
+            name,
+            linkname
         } = req.body;
 
         const uniqueEmailCheck = await User.findOne({
@@ -46,7 +48,7 @@ exports.postSignup = async (req, res, next) => {
 
 
         const card = new Card({
-            linkname: '',
+            linkname: linkname,
             userId: user._id,
             profileAbout: {
                 description: 'Opis',
@@ -64,7 +66,8 @@ exports.postSignup = async (req, res, next) => {
         })
 
         const privateData = new UserPrivateData({
-            userId: user._id
+            userId: user._id,
+            name: name
         })
 
         await card.save()

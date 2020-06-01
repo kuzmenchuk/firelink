@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import AdminPage from './pages/AdminPage';
+import LinkPage from './pages/link-page/link-page';
 
 import MainMenu from './pages/admin/main-menu';
 import About from './pages/admin/profile';
@@ -12,7 +13,6 @@ import Messengers from './pages/admin/messengers';
 import Products from './pages/admin/products';
 import SingleProduct from './pages/admin/single-product';
 
-import AuthPage from './pages/AuthPage';
 import LogIn from './pages/login';
 import SignUp from './pages/signup';
 
@@ -23,6 +23,9 @@ export const useRoutes = (isAuth) => {
             <Switch>
                 <Route path="/profile">
                     <AdminPage />
+                </Route>
+                <Route path="/:id">
+                    <LinkPage />
                 </Route>
                 <Redirect to="/profile" />
             </Switch>
@@ -36,6 +39,9 @@ export const useRoutes = (isAuth) => {
             </Route>
             <Route path="/signup" exact>
                 <SignUp />
+            </Route>
+            <Route path="/:id">
+                <LinkPage />
             </Route>
             <Redirect to="/login" />
         </Switch>

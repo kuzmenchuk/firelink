@@ -7,8 +7,8 @@ const {
 const cardSchema = new Schema({
     linkname: {
         type: String,
-        // required: true,
-        // unique: true
+        required: true,
+        unique: true
     },
     design: {
         background: {

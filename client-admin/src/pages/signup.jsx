@@ -60,7 +60,7 @@ export default function SignUp() {
     const { showToast } = useMessage()
     const { loading, request } = useHttp()
     const [form, setForm] = useState({
-        email: '', password: ''
+        email: '', password: '', name: '', linkname: ''
     })
 
     const registerHandler = async () => {
@@ -97,6 +97,8 @@ export default function SignUp() {
                             id="name"
                             label="Imię"
                             autoFocus
+                            value={form.name}
+                            onChange={changeHandler}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -121,6 +123,18 @@ export default function SignUp() {
                             type="password"
                             id="password"
                             value={form.password}
+                            onChange={changeHandler}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            variant="outlined"
+                            required
+                            fullWidth
+                            name="linkname"
+                            label="Nazwij swój link"
+                            id="linkname"
+                            value={form.linkname}
                             onChange={changeHandler}
                         />
                     </Grid>

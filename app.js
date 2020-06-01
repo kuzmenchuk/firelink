@@ -54,6 +54,9 @@ app.use('/api/auth', require('./routes/auth.routes'));
 
 app.use('/api/data-change', require('./routes/data-changes.routes'));
 
+app.use('/api', require('./routes/link.routes'));
+
+
 app.use((error, req, res, nest) => {
     console.log("\x1b[31m", error);
     const status = error.statusCode || 500;
