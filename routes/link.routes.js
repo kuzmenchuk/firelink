@@ -14,9 +14,9 @@ router.get('/:linkname', async (req, res, next) => {
             return res.json(link)
         }
 
-        res.status(404).json({
-            message: 'Status 404: nie ma takiego linku.'
-        })
+        // res.status(404).json({
+        //     message: 'Status 404: nie ma takiego linku.'
+        // })
 
     } catch (e) {
         if (!e.statusCode) e.statusCode = 500;
