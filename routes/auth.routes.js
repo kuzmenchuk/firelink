@@ -15,10 +15,15 @@ const authController = require('../controllers/auth');
 router.post(
     '/register',
     [
-        check('email', 'Ups, ten email nie wygląda prawidłowo.').isEmail(),
+        check('email', 'Ups, ten email nie wygląda prawidłowo.').normalizeEmail().isEmail(),
         check('password', 'Minimalna długość hasła - 8 znaków').isLength({
             min: 8
-        })
+        }),
+        check('linkname', 'Minimalna długość nazwy linku - 3 litery. Maksymalna - 25.').isLength({
+            min: 3,
+            max: 25
+        }),
+        check('fullname', 'Podaj proszę imię.').exists()
     ],
     authController.postSignup
 )

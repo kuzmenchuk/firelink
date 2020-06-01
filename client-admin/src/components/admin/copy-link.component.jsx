@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import TouchAppOutlinedIcon from '@material-ui/icons/TouchAppOutlined';
@@ -14,7 +14,7 @@ function CopyLink() {
 
     return (
         <CopyToClipboard
-            text={`https://firelink.pl/${theDataObject.linkname}`}
+            text={`http://ec2-52-15-195-225.us-east-2.compute.amazonaws.com/${theDataObject.linkname}`}
             onCopy={() => showToast('Link jest skopiowany!', 'primary')}
         >
             {/* <input
@@ -27,7 +27,7 @@ function CopyLink() {
             <TextField
                 id="outlined-read-only-input"
                 label="Skopiować link"
-                value={`firelink.pl/${theDataObject.linkname}`}
+                value={`.../${theDataObject.linkname}`}
                 InputProps={{
                     readOnly: true,
                     endAdornment: (

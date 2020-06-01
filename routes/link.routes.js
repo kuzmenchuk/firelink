@@ -16,6 +16,7 @@ router.get('/:linkname', async (req, res, next) => {
             return res.json(link)
         }
 
+        console.log(req.params.linkname)
         res.status(404).json({
             message: 'Taka strona nie istnieje. Sprawdź poprawność linku.'
         })

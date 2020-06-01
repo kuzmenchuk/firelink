@@ -41,7 +41,7 @@ function SingleLink() {
                             color="primary"
                         />
                     }
-                    label='Widoczność linku'
+                    label={links[linkIndex].active ? 'Aktywny' : 'Nieaktywny'}
                 />
                 <br />
                 <br />

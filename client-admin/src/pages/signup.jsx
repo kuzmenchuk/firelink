@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,8 @@ import { useHttp } from '../hooks/http.hook';
 import { useMessage } from '../hooks/message.hook';
 
 import './auth-page.scss';
+
+import { AuthContext } from '../context/AuthContext';
 
 
 function Copyright() {
@@ -62,11 +64,15 @@ export default function SignUp() {
     const [form, setForm] = useState({
         email: '', password: '', name: '', linkname: ''
     })
+    const auth = useContext(AuthContext)
 
     const registerHandler = async () => {
         try {
             const data = await request('/api/auth/register', 'POST', { ...form });
-            showToast(data.message, 'success')
+            if (data) {
+                showToast(data.message, 'success')
+                auth.login(data.token, data.userId)
+            }
         } catch (error) { }
     }
 
@@ -96,7 +102,6 @@ export default function SignUp() {
                             fullWidth
                             id="name"
                             label="Imię"
-                            autoFocus
                             value={form.name}
                             onChange={changeHandler}
                         />

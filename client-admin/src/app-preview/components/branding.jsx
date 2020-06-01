@@ -56,7 +56,7 @@ function Branding() {
   return (
     <MainDiv>
       <div></div>
-      <ButtonLink href="https://kuzmenczuk.dev/e-link-formularz" target="_blank" rel="noopener noreferrer" >Zamów swoją e-wizytówkę</ButtonLink>
+      <ButtonLink href="http://ec2-52-15-195-225.us-east-2.compute.amazonaws.com/" target="_blank" rel="noopener noreferrer" >Stwórz swoją e-wizytówkę</ButtonLink>
     </MainDiv>
   )
 }

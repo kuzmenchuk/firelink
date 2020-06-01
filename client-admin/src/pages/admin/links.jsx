@@ -14,7 +14,7 @@ import './links.styles.scss';
 
 
 function Links() {
-    const { links, setLinks, setAnyChanges, changeLinks } = useContext(DataContext)
+    const { changeLinks } = useContext(DataContext)
 
 
     return (

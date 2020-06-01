@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { TwitterPicker, SliderPicker } from 'react-color';
 
-import FormGroup from '@material-ui/core/FormGroup';
+// import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Grid from '@material-ui/core/Grid';
@@ -36,7 +36,7 @@ function Design() {
 
     return (
         <DataChangingTemplate
-            pageName='Wygląd linku'
+            pageName='Design linku'
             whatSave='design'
         >
             <main className="design">

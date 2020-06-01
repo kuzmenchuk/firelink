@@ -99,7 +99,6 @@ export default function LogIn() {
                     label="Email adres"
                     name="email"
                     autoComplete="email"
-                    autoFocus
                     value={form.email}
                     onChange={changeHandler}
                 />

@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 
 import DataContext from '../context/card-data.context';
 
-import { Alert, Intent } from '@blueprintjs/core';
+//import { Alert, Intent } from '@blueprintjs/core';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';

@@ -14,11 +14,10 @@ import './profile.styles.scss';
 
 function About() {
   const { profile, changeProfile, imagePreview } = useContext(DataContext)
-  console.log(imagePreview)
 
   return (
     <DataChangingTemplate
-      pageName='Informacje o sobie'
+      pageName='Twój profil'
       whatSave='profile'
     >
       <main className="about-page">
@@ -26,7 +25,7 @@ function About() {
         <h4>Zdjęcie profilu</h4>
         <div className="avatar__section">
           <div className="avatar">
-            <img src={imagePreview ? imagePreview : profile.photoUrl} />
+            <img src={imagePreview ? imagePreview : profile.photoUrl} alt={profile.fullname} />
           </div>
           <UploadFiles onChange={(event) => changeProfile('add-image', event)} />
           <Button
@@ -57,7 +56,7 @@ function About() {
           label='Imię'
           onChange={event => changeProfile('form-data', event)}
           value={profile.fullname}
-          maxLength='40'
+          maxLength='35'
         />
         <InputFields
           name='description'
@@ -65,7 +64,7 @@ function About() {
           label='Opis'
           onChange={event => changeProfile('form-data', event)}
           value={profile.description}
-          maxLength='400'
+          maxLength='350'
         />
 
 

@@ -47,8 +47,8 @@ exports.postProfile = async (req, res, next) => {
         // myLink.subheader = 'jojo';
 
         card.profileAbout = {
-            fullname,
-            description,
+            fullname: fullname.split(/\s+/).join(' '),
+            description: description.split(/\s+/).join(' '),
             photoUrl
         }
 
@@ -56,6 +56,7 @@ exports.postProfile = async (req, res, next) => {
         await card.save()
 
         res.status(201).json({
+            photoUrl,
             message: 'Zmieniłeś dane na swoim linku!'
         })
 
@@ -94,6 +95,7 @@ exports.postDesign = async (req, res, next) => {
         await card.save()
 
         res.status(201).json({
+            imageUrl,
             message: 'Zmieniłeś dane na swoim linku!'
         })
 
@@ -210,6 +212,7 @@ exports.postSingleProduct = async (req, res, next) => {
         await card.save()
 
         res.status(201).json({
+            products: card.products,
             message: 'Zmieniłeś dane o swoim produkcie!'
         })
 

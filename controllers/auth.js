@@ -51,8 +51,8 @@ exports.postSignup = async (req, res, next) => {
             linkname: linkname,
             userId: user._id,
             profileAbout: {
-                description: 'Opis',
-                fullname: 'Imię',
+                description: '',
+                fullname: name,
                 photoUrl: `${config.get('domen')}images/avatar_default.svg`
             },
             design: {
@@ -70,11 +70,23 @@ exports.postSignup = async (req, res, next) => {
             name: name
         })
 
+        user.lastLogin = new Date();
+
         await card.save()
         await privateData.save()
         await user.save()
 
+        const token = jwt.sign({
+                userId: user.id
+            },
+            config.get('jwtSecret'), {
+                expiresIn: '1h'
+            }
+        )
+
         res.status(201).json({
+            token,
+            userId: user.id,
             message: 'Konto zostało stworzone!'
         })
 

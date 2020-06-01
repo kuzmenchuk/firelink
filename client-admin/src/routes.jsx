@@ -24,6 +24,9 @@ export const useRoutes = (isAuth) => {
                 <Route path="/profile">
                     <AdminPage />
                 </Route>
+                <Route path="/signup" exact>
+                    <Redirect to="/profile" />
+                </Route>
                 <Route path="/:id">
                     <LinkPage />
                 </Route>

@@ -111,7 +111,7 @@ export const useData = () => {
             const data = await request('/api/data-change/card/profile', 'POST', formData, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
 
             if (data) {
-                setTheDataObject({ ...theDataObject, profileAbout: { ...profile } })
+                setTheDataObject({ ...theDataObject, profileAbout: { ...profile, photoUrl: data.photoUrl } })
                 window.history.back()
                 showToast(data.message, 'success');
                 setImagePreview(null)
@@ -172,7 +172,7 @@ export const useData = () => {
             const data = await request('/api/data-change/card/design', 'POST', formData, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
 
             if (data) {
-                setTheDataObject({ ...theDataObject, design })
+                setTheDataObject({ ...theDataObject, design: { ...design, background: { ...design.background, imageUrl: data.imageUrl } } })
                 window.history.back()
                 showToast(data.message, 'success');
                 setImagePreview(null)
@@ -362,7 +362,7 @@ export const useData = () => {
             const data = await request('/api/data-change/card/single-product', 'POST', formData, { Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('userData')).token });
 
             if (data) {
-                setTheDataObject({ ...theDataObject, products })
+                setTheDataObject({ ...theDataObject, products: data.products })
                 window.history.back()
                 showToast(data.message, 'success');
                 setImagePreview(null)

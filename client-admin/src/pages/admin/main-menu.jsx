@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 // import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 
+import DataContext from '../../context/card-data.context';
 import { AuthContext } from '../../context/AuthContext';
 
 import Copylink from '../../components/admin/copy-link.component';
@@ -10,20 +11,20 @@ import MenuItem from '../../components/admin/menu-item.component';
 
 import { FiUser, FiLink } from 'react-icons/fi'
 import { GiPencilBrush } from 'react-icons/gi'
-import { IoMdChatboxes } from 'react-icons/io'
+// import { IoMdChatboxes } from 'react-icons/io'
 import { BsCardChecklist } from 'react-icons/bs'
 
 
 const MENU_ITEMS = [
     {
         linkToHref: '/profile/about',
-        linkToName: 'Informacja o sobie',
+        linkToName: 'Profil',
         ico: () => <FiUser />,
         key: 1
     },
     {
         linkToHref: '/profile/design',
-        linkToName: 'Wygląd linku',
+        linkToName: 'Design linku',
         ico: () => <GiPencilBrush />,
         key: 2
     },
@@ -41,7 +42,7 @@ const MENU_ITEMS = [
     },
     {
         linkToHref: '/profile/products',
-        linkToName: 'Karteczki produktów',
+        linkToName: 'Twoje produkty',
         ico: () => <BsCardChecklist />,
         key: 5
     }
@@ -49,12 +50,13 @@ const MENU_ITEMS = [
 
 function MainMenu() {
     const auth = useContext(AuthContext)
+    const { profile } = useContext(DataContext)
     const logout = auth.logout;
 
     return (
         <div style={{ display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'space-between' }}>
             <div>
-                <h2 className="header__hi">Cześć, Dimon!</h2>
+                <h2 className="header__hi">{profile.fullname ? `Cześć, ${profile.fullname.split(' ')[0]}!` : 'Cześć!'}</h2>
                 <Copylink />
                 <ul className="menu-items">
                     {
