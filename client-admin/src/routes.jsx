@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import AdminPage from './pages/AdminPage';
+import AdminPage from './pages/admin-page';
 import LinkPage from './pages/link-page/link-page';
 
 import MainMenu from './pages/admin/main-menu';

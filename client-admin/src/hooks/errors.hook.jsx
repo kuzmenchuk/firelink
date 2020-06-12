@@ -1,6 +1,6 @@
 import { useCallback, useContext } from 'react'
 
-import { AuthContext } from '../context/AuthContext'
+import { AuthContext } from '../context/auth-context'
 
 import { useMessage } from './message.hook';
 

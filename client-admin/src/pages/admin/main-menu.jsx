@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 
 import DataContext from '../../context/card-data.context';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/auth-context';
 
 import Copylink from '../../components/admin/copy-link.component';
 import MenuItem from '../../components/admin/menu-item.component';

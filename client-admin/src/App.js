@@ -8,7 +8,7 @@ import {
 
 import { useRoutes } from './routes';
 import { useAuth } from './hooks/auth.hook';
-import { AuthContext } from './context/AuthContext';
+import { AuthContext } from './context/auth-context';
 
 import './app.scss'
 
