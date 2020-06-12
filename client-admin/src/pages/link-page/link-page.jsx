@@ -42,7 +42,7 @@ export default function Linkpage() {
                 }
             } catch (e) { }
         }
-        fetchData()
+        if (linkId !== 'profile' || linkId !== 'login' || linkId !== 'singup') fetchData()
     }, [request])
 
     if (loading) return <div style={{ width: '100vw' }}><LinearProgress /></div>

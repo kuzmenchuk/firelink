@@ -138,7 +138,7 @@ exports.postLogin = async (req, res, next) => {
                 userId: user.id
             },
             config.get('jwtSecret'), {
-                expiresIn: '1h'
+                expiresIn: '7d'
             }
         )
 

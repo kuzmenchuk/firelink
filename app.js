@@ -61,7 +61,7 @@ if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'client-admin', 'build', 'index.html')))
 }
 
-
+// errors
 app.use((error, req, res, nest) => {
     console.log("\x1b[31m", error);
     const status = error.statusCode || 500;

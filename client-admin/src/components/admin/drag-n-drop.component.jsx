@@ -13,6 +13,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import DataContext from '../../context/card-data.context';
 
+import './drag-n-drop.styles.scss'
 
 
 const DragHandle = sortableHandle(() => <span className="drag-handler">::</span>);
@@ -65,7 +66,7 @@ function DragDrop({ type }) {
     // RETURN 
     if (type === 'links') {
         return (
-            <SortableContainer onSortEnd={onSortEnd} useDragHandle>
+            <SortableContainer onSortEnd={onSortEnd} useDragHandle lockAxis='y'>
                 {links.map((value, index) => (
                     <SortableItem key={value.id} index={index} active={value.active} header={value.header} subheader={value.subheader} id={value.id} />
                 ))}
@@ -73,7 +74,7 @@ function DragDrop({ type }) {
         )
     } else if (type === 'products') {
         return (
-            <SortableContainer onSortEnd={onSortEnd} useDragHandle>
+            <SortableContainer onSortEnd={onSortEnd} useDragHandle lockAxis='y'>
                 {products.map((value, index) => (
                     <SortableItem key={value.id} index={index} active={value.active} header={value.header} subheader={value.subheader} id={value.id} />
                 ))}

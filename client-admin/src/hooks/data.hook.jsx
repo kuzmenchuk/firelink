@@ -380,6 +380,7 @@ export const useData = () => {
         setMessengers(theDataObject.messengers)
         setProducts(theDataObject.products)
         setProfile(theDataObject.profileAbout)
+        setImagePreview(null)
     }
 
     return {
